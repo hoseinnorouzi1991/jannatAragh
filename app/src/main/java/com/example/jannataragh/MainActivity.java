@@ -8,14 +8,21 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
     private Menu collapsedMenu;
     private boolean appBarExpanded = true;
 
+    RecyclerView recyclerView;
+    RecyclerAdapter recyclerAdapter;
+    ArrayList<News> sampleNews;
+
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +51,54 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         navigationView = (NavigationView)findViewById(R.id.navigationView);
         fab = (FloatingActionButton)findViewById(R.id.fab);
+
+        recyclerView = (RecyclerView)findViewById(R.id.recycler);
+        recyclerView.setHasFixedSize(true);
+        sampleNews = new ArrayList<>();
+        //swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipRefreh);
+
+
+
+        for (int i = 0; i <10 ; i++) {
+            News news = new News();
+            news.setId(i+1);
+            news.setTitle("خبر ورزشی!");
+            news.setDesc("این یک خبر ورزشی تستی می باشد برای تست ریسایکلر ویوو");
+
+            sampleNews.add(news);
+        }
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recyclerAdapter = new RecyclerAdapter(sampleNews,this);
+        recyclerView.setAdapter(recyclerAdapter);
+
+
+        //swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this,R.color.colorPrimary),ContextCompat.getColor(this,R.color.colorAccent));
+
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                sampleNews.clear();
+//
+//                for (int i = 0; i <10 ; i++) {
+//                    News news = new News();
+//                    news.setId(i+1);
+//                    news.setTitle("خبر ورزشی!");
+//                    news.setDesc("این یک خبر ورزشی تستی می باشد برای تست ریسایکلر ویوو");
+//
+//                    sampleNews.add(news);
+//                }
+//
+//                recyclerAdapter.notifyDataSetChanged();
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
+
 
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.anim_toolbar);
@@ -134,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 && (!appBarExpanded || collapsedMenu.size() != 1)) {
             //collapsed
             collapsedMenu.add("Add")
-                    .setIcon(R.drawable.ic_back)
+                    .setIcon(R.drawable.ic_shopping_basket)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         } else {
             //expanded

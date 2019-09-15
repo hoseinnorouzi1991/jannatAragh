@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative">
+
+    <android.support.v7.widget.CardView
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_recycler_news"
+                android:src="@drawable/aragh"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="8dp"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:textColor="#2f2f2f"
+                android:maxLines="1"
+                android:textSize="18sp"
+                android:id="@+id/txt_recycler_titleNews"
+                tools:text="@string/titleNews"
+                android:layout_toLeftOf="@id/img_recycler_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_toLeftOf="@id/img_recycler_news"
+                android:layout_below="@+id/txt_recycler_titleNews"
+                android:layout_marginTop="16dp"
+
+                tools:text="@string/descNews"
+                android:id="@+id/txt_recycler_descNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
