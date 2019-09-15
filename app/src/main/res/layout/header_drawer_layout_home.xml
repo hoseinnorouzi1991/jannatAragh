@@ -6,10 +6,8 @@
         android:id="@+id/imgHeader"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:background="@drawable/headerdrawer"
+        android:background="@color/colorPrimary"
         android:scaleType="centerCrop">
-
-
 
     </ImageView>
 
