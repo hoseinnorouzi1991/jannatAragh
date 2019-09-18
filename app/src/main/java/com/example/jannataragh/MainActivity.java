@@ -3,6 +3,7 @@ package com.example.jannataragh;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
     SwipeRefreshLayout swipeRefreshLayout;
 
+    ImageView imgDrawerMenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +55,13 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         navigationView = (NavigationView)findViewById(R.id.navigationView);
         fab = (FloatingActionButton)findViewById(R.id.fab);
+        imgDrawerMenu = (ImageView)findViewById(R.id.imgDrawerMenu);
 
         recyclerView = (RecyclerView)findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         sampleNews = new ArrayList<>();
         //swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipRefreh);
+
 
 
 
@@ -104,12 +110,12 @@ public class MainActivity extends AppCompatActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.anim_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null)
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
-//        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-//        collapsingToolbar.setTitle(getString(R.string.android_desserts));
+        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle(getString(R.string.header_toolbar));
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
                 R.drawable.araghiat);
@@ -120,16 +126,12 @@ public class MainActivity extends AppCompatActivity {
             public void onGenerated(Palette palette) {
 //                int vibrantColor = palette.getVibrantColor(R.color.colorAccent);
 //                collapsingToolbar.setContentScrimColor(vibrantColor);
-//                collapsingToolbar.setStatusBarScrimColor(R.color.colorPrimary);
+                collapsingToolbar.setStatusBarScrimColor(R.color.colorPrimary);
             }
         });
 
 
         //  Use when your list size is constant for better performance
-
-
-
-
 
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
@@ -146,13 +148,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
+        imgDrawerMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(Gravity.START);
+            }
+        });
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.START);
+//                drawerLayout.openDrawer(Gravity.START);
             }
         });
 //        imgMenu.setOnClickListener(new View.OnClickListener() {
@@ -162,36 +168,35 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//                int id = menuItem.getItemId();
-//
-//                switch(id)
-//                {
-//                    case R.id.home:
-//                        Toast.makeText(MainActivity.this," homw click", Toast.LENGTH_SHORT).show();
-//
-//                    case R.id.list_product:
-//                        Toast.makeText(MainActivity.this," list product click",Toast.LENGTH_SHORT).show();
-//                    case R.id.basket:
-//                        Toast.makeText(MainActivity.this,"basket click",Toast.LENGTH_SHORT).show();
-//                    case R.id.setting:
-//                        Toast.makeText(MainActivity.this," setting click",Toast.LENGTH_SHORT).show();
-//                    case R.id.aboutUs:
-//                        Toast.makeText(MainActivity.this," about us click",Toast.LENGTH_SHORT).show();
-//
-//                }
-//                return false;
-//
-//            }
-//        });
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+
+                switch(id)
+                {
+                    case R.id.home:
+                        Toast.makeText(MainActivity.this," homw click", Toast.LENGTH_SHORT).show();
+
+                    case R.id.list_product:
+                        Toast.makeText(MainActivity.this," list product click",Toast.LENGTH_SHORT).show();
+                    case R.id.basket:
+                        Toast.makeText(MainActivity.this,"basket click",Toast.LENGTH_SHORT).show();
+                    case R.id.setting:
+                        Toast.makeText(MainActivity.this," setting click",Toast.LENGTH_SHORT).show();
+                    case R.id.aboutUs:
+                        Toast.makeText(MainActivity.this," about us click",Toast.LENGTH_SHORT).show();
+
+                }
+                return false;
+
+            }
+        });
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (collapsedMenu != null
-                && (!appBarExpanded || collapsedMenu.size() != 1)) {
+        if (collapsedMenu != null && (!appBarExpanded || collapsedMenu.size() != 1)) {
             //collapsed
             collapsedMenu.add("Add")
                     .setIcon(R.drawable.ic_shopping_basket)
@@ -207,6 +212,23 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         collapsedMenu = menu;
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.aboutUs:
+                return true;
+        }
+        if (item.getTitle() == "Add") {
+            //Toast.makeText(this, "clicked add", Toast.LENGTH_SHORT).show();
+            //drawerLayout.openDrawer(Gravity.START);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 
