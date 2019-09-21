@@ -27,7 +27,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
     @NonNull
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_news,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_product_horizontal,viewGroup,false);
         return new NewsViewHolder(view);
     }
 
@@ -37,6 +37,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
         News model = newsArrayList.get(i);
         newsViewHolder.txtTitle.setText(model.getTitle());
         newsViewHolder.txtDesc.setText(model.getDesc());
+        newsViewHolder.txtPrice.setText(model.getPrice());
+        newsViewHolder.txtToman.setText(model.getToman());
 
         newsViewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +60,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
         public ImageView imgNews;
         public TextView txtTitle;
         public TextView txtDesc;
+        public TextView txtPrice;
+        public TextView txtToman;
         public RelativeLayout relativeLayout;
 
         public NewsViewHolder(@NonNull View itemView) {
@@ -66,6 +70,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
             imgNews = (ImageView)itemView.findViewById(R.id.img_recycler_news);
             txtTitle = (TextView)itemView.findViewById(R.id.txt_recycler_titleNews);
             txtDesc = (TextView)itemView.findViewById(R.id.txt_recycler_descNews);
+            txtPrice = (TextView)itemView.findViewById(R.id.txt_recycler_price);
+            txtToman = (TextView)itemView.findViewById(R.id.txt_recycler_toman);
             relativeLayout = (RelativeLayout)itemView.findViewById(R.id.relative);
         }
     }

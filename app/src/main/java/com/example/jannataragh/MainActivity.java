@@ -2,20 +2,22 @@ package com.example.jannataragh;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
@@ -38,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private Menu collapsedMenu;
     private boolean appBarExpanded = true;
 
-    RecyclerView recyclerView;
+    RecyclerView recyclerView_porforoosh;
+    RecyclerView recyclerView_porkhasiat;
     RecyclerAdapter recyclerAdapter;
     ArrayList<News> sampleNews;
 
@@ -55,10 +58,13 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         navigationView = (NavigationView)findViewById(R.id.navigationView);
         fab = (FloatingActionButton)findViewById(R.id.fab);
-        imgDrawerMenu = (ImageView)findViewById(R.id.imgDrawerMenu);
+        //imgDrawerMenu = (ImageView)findViewById(R.id.imgDrawerMenu);
 
-        recyclerView = (RecyclerView)findViewById(R.id.recycler);
-        recyclerView.setHasFixedSize(true);
+        recyclerView_porkhasiat = (RecyclerView)findViewById(R.id.recycler_porkhasiat);
+        recyclerView_porkhasiat.setHasFixedSize(true);
+
+        recyclerView_porforoosh = (RecyclerView)findViewById(R.id.recycler_porfroosh);
+        recyclerView_porforoosh.setHasFixedSize(true);
         sampleNews = new ArrayList<>();
         //swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipRefreh);
 
@@ -68,20 +74,25 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i <10 ; i++) {
             News news = new News();
             news.setId(i+1);
-            news.setTitle("خبر ورزشی!");
-            news.setDesc("این یک خبر ورزشی تستی می باشد برای تست ریسایکلر ویوو");
+            news.setTitle("عرق نعنا");
+            news.setDesc("دارای خواص دارویی زیادی می باشد. در ادامه به خصوصیات آن بیشتر اشاره شده است...");
+            news.setPrice("4000");
+            news.setToman("تومان");
 
             sampleNews.add(news);
         }
 
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recyclerView_porkhasiat.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recyclerView_porforoosh.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+//        recyclerView.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
+//        recyclerView.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
+//        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         recyclerAdapter = new RecyclerAdapter(sampleNews,this);
-        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView_porforoosh.setAdapter(recyclerAdapter);
+
+        recyclerView_porkhasiat.setAdapter(recyclerAdapter);
 
 
         //swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this,R.color.colorPrimary),ContextCompat.getColor(this,R.color.colorAccent));
@@ -106,16 +117,26 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
 
+        Typeface typeface = ResourcesCompat.getFont(this,R.font.vazirmediumfd);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.anim_toolbar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        if (getSupportActionBar() != null) {
+            Drawable drawable = getResources().getDrawable(R.drawable.ic_menu_home);
+            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+            Drawable newdrawable = new BitmapDrawable(getResources(),Bitmap.createScaledBitmap(bitmap,70,70,true));
+            //newdrawable.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_ATOP);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(newdrawable);
+        }
 
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(getString(R.string.header_toolbar));
+        collapsingToolbar.setCollapsedTitleTypeface(typeface);
+        collapsingToolbar.setExpandedTitleTypeface(typeface);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
                 R.drawable.araghiat);
@@ -148,12 +169,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        imgDrawerMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.START);
-            }
-        });
+//        imgDrawerMenu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                drawerLayout.openDrawer(Gravity.START);
+//            }
+//        });
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,15 +197,15 @@ public class MainActivity extends AppCompatActivity {
                 switch(id)
                 {
                     case R.id.home:
-                        Toast.makeText(MainActivity.this," homw click", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this," home click", Toast.LENGTH_SHORT).show();
 
-                    case R.id.list_product:
+                    case R.id.menu_list_product:
                         Toast.makeText(MainActivity.this," list product click",Toast.LENGTH_SHORT).show();
-                    case R.id.basket:
+                    case R.id.menu_basket:
                         Toast.makeText(MainActivity.this,"basket click",Toast.LENGTH_SHORT).show();
-                    case R.id.setting:
+                    case R.id.submenu_setting:
                         Toast.makeText(MainActivity.this," setting click",Toast.LENGTH_SHORT).show();
-                    case R.id.aboutUs:
+                    case R.id.submenu_aboutUs:
                         Toast.makeText(MainActivity.this," about us click",Toast.LENGTH_SHORT).show();
 
                 }
@@ -218,9 +239,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                //finish();
+                drawerLayout.openDrawer(Gravity.START);
                 return true;
-            case R.id.aboutUs:
+            case R.id.submenu_aboutUs:
                 return true;
         }
         if (item.getTitle() == "Add") {
