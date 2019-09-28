@@ -1,6 +1,7 @@
 package com.example.jannataragh;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,7 +33,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsViewHolder newsViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final NewsViewHolder newsViewHolder, final int i) {
 
         News model = newsArrayList.get(i);
         newsViewHolder.txtTitle.setText(model.getTitle());
@@ -43,6 +44,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
         newsViewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.context,ProductDetails.class);
+                MainActivity.context.startActivity(intent);
                 Toast.makeText(context,i+"",Toast.LENGTH_SHORT).show();
             }
         });

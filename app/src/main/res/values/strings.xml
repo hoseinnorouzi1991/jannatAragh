@@ -9,4 +9,6 @@
     <string name="toman">تومان</string>
     <string name="porgorosh_list">لیست کامل</string>
     <string name="porforosh">پرفروش ترین ها</string>
+    <string name="commentHead">عنوان کامنت</string>
+    <string name="commentDesc">متن نظر کاربران در این قسمت قرار میگیرد.</string>
 </resources>

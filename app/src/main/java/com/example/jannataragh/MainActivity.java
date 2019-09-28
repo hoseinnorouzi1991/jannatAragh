@@ -1,5 +1,6 @@
 package com.example.jannataragh;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -49,10 +50,14 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView imgDrawerMenu;
 
+    static Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        context = getApplicationContext();
 
         imgMenu = (ImageView)findViewById(R.id.imgHambergerMenu);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
@@ -67,9 +72,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView_porforoosh.setHasFixedSize(true);
         sampleNews = new ArrayList<>();
         //swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipRefreh);
-
-
-
 
         for (int i = 0; i <10 ; i++) {
             News news = new News();
@@ -157,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                //Log.d(AnimateToolbar.class.getSimpleName(), "onOffsetChanged: verticalOffset: " + verticalOffset);
 
                 //  Vertical offset == 0 indicates appBar is fully expanded.
                 if (Math.abs(verticalOffset) > 200) {
@@ -168,6 +171,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //https://blog.iamsuleiman.com/toolbar-animation-with-android-design-support-library/
+
 
 //        imgDrawerMenu.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -215,6 +221,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         if (collapsedMenu != null && (!appBarExpanded || collapsedMenu.size() != 1)) {
@@ -222,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
             collapsedMenu.add("Add")
                     .setIcon(R.drawable.ic_shopping_basket)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
         } else {
             //expanded
         }
@@ -247,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if (item.getTitle() == "Add") {
             //Toast.makeText(this, "clicked add", Toast.LENGTH_SHORT).show();
-            //drawerLayout.openDrawer(Gravity.START);
+            drawerLayout.openDrawer(Gravity.START);
         }
 
         return super.onOptionsItemSelected(item);

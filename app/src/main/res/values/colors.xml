@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#419644</color>
     <color name="colorAccent">#FF9800</color>
     <color name="backgroundApp">#B4E7E3E3</color>
-    <color name="backgroundDrawer">#E0E0E0</color>
+    <color name="backgroundDrawer">#D5D5D5</color>
+    <!--FF9800-->
 </resources>
