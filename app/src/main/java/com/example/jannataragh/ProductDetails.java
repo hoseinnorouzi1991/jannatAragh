@@ -1,18 +1,14 @@
 package com.example.jannataragh;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -46,28 +42,27 @@ public class ProductDetails extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.htab_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.htab_collapse_toolbar);
-
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.htab_collapse_toolbar);
+/*
         try {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.araghiat3);
             Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                 @SuppressWarnings("ResourceType")
                 @Override
                 public void onGenerated(Palette palette) {
-
                     int vibrantColor = palette.getVibrantColor(R.color.colorPrimary);
-                    int vibrantDarkColor = palette.getDarkVibrantColor(R.color.colorPrimary);
-                    collapsingToolbarLayout.setContentScrimColor(vibrantColor);
-                    collapsingToolbarLayout.setStatusBarScrimColor(vibrantDarkColor);
+                    int vibrantDarkColor = palette.getDarkVibrantColor(R.color.colorPrimaryDark);
+//                    collapsingToolbarLayout.setContentScrimColor(vibrantColor);
+//                    collapsingToolbarLayout.setStatusBarScrimColor(vibrantDarkColor);
                 }
             });
 
         } catch (Exception e) {
             // if Bitmap fetch fails, fallback to primary colors
             Log.e(TAG, "onCreate: failed to create bitmap from background", e.fillInStackTrace());
-            collapsingToolbarLayout.setContentScrimColor(ContextCompat.getColor(this, R.color.colorPrimary));
-            collapsingToolbarLayout.setStatusBarScrimColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        }
+//            collapsingToolbarLayout.setContentScrimColor(ContextCompat.getColor(this, R.color.colorPrimary));
+//            collapsingToolbarLayout.setStatusBarScrimColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        }*/
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
