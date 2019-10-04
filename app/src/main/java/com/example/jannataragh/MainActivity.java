@@ -227,11 +227,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         if (collapsedMenu != null && (!appBarExpanded || collapsedMenu.size() != 1)) {
             //collapsed
+
             collapsedMenu.add("Add")
                     .setIcon(R.drawable.ic_shopping_basket)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         } else {
+
             //expanded
         }
         return super.onPrepareOptionsMenu(collapsedMenu);
@@ -278,3 +280,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
+
+//https://blog.iamsuleiman.com/toolbar-animation-with-android-design-support-library/
