@@ -204,15 +204,19 @@ public class MainActivity extends AppCompatActivity {
                 {
                     case R.id.home:
                         Toast.makeText(MainActivity.this," home click", Toast.LENGTH_SHORT).show();
-
+                        break;
                     case R.id.menu_list_product:
                         Toast.makeText(MainActivity.this," list product click",Toast.LENGTH_SHORT).show();
+                        break;
                     case R.id.menu_basket:
                         Toast.makeText(MainActivity.this,"basket click",Toast.LENGTH_SHORT).show();
+                        break;
                     case R.id.submenu_setting:
                         Toast.makeText(MainActivity.this," setting click",Toast.LENGTH_SHORT).show();
+                        break;
                     case R.id.submenu_aboutUs:
                         Toast.makeText(MainActivity.this," about us click",Toast.LENGTH_SHORT).show();
+                        break;
 
                 }
                 return false;
@@ -228,9 +232,9 @@ public class MainActivity extends AppCompatActivity {
         if (collapsedMenu != null && (!appBarExpanded || collapsedMenu.size() != 1)) {
             //collapsed
 
-            collapsedMenu.add("Add")
-                    .setIcon(R.drawable.ic_shopping_basket)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+//            collapsedMenu.add("Add")
+//                    .setIcon(R.drawable.ic_shopping_basket)
+//                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         } else {
 
@@ -241,8 +245,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.basket, menu);
         collapsedMenu = menu;
+
+        MenuItem basket = collapsedMenu.findItem(R.id.menu_basket);
+
+        if(appBarExpanded)
+        {
+            basket.setVisible(false);
+        }
+        else
+        {
+            basket.setVisible(true);
+        }
+
         return true;
     }
 
