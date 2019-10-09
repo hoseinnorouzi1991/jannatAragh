@@ -11,4 +11,6 @@
     <string name="porforosh">پرفروش ترین ها</string>
     <string name="commentHead">عنوان کامنت</string>
     <string name="commentDesc">متن نظر کاربران در این قسمت قرار میگیرد.</string>
+    <string name="title_properties">عنوان محصول</string>
+    <string name="txt_properties_explain">خلاصه ای از خصوصیات محصول را می توانید در این قسمت وارد کنید.</string>
 </resources>

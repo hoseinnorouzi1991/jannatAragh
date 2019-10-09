@@ -5,5 +5,6 @@
     <color name="colorAccent">#4CAF50</color><!--FF9800-->
     <color name="backgroundApp">#B4E7E3E3</color>
     <color name="backgroundDrawer">#D5D5D5</color>
+    <color name="line">#D3D2D2</color>
     <!--FF9800-->
 </resources>
