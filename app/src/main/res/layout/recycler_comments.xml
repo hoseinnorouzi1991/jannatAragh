@@ -22,7 +22,7 @@
             <TextView
                 android:textColor="#2f2f2f"
                 android:maxLines="1"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:id="@+id/txt_recycler_titleComments"
                 tools:text="@string/commentHead"
                 android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
 
             <TextView
                 android:layout_below="@+id/txt_recycler_titleComments"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="14dp"
                 tools:text="@string/commentDesc"
                 android:id="@+id/txt_recycler_descComments"
                 android:layout_width="wrap_content"
