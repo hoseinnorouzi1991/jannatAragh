@@ -4,7 +4,9 @@
     <color name="colorPrimaryDark">#419644</color>
     <color name="colorAccent">#4CAF50</color><!--FF9800-->
     <color name="backgroundApp">#B4E7E3E3</color>
+    <color name="backgroundDiscount">#B4C4C4C4</color>
     <color name="backgroundDrawer">#D5D5D5</color>
     <color name="line">#D3D2D2</color>
+    <color name="txt_discount_color">#F44336</color>
     <!--FF9800-->
 </resources>

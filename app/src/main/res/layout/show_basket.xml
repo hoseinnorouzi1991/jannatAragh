@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        app:cardElevation="4dp"
+        app:cardPreventCornerOverlap="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/relative_properties_basket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:paddingTop="12dp">
+
+                <ImageView
+                    android:id="@+id/img_product_basket"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/aragh" />
+
+                <TextView
+                    android:id="@+id/txt_product_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/img_product_basket"
+                    android:maxLines="1"
+                    android:text="@string/product_name_basket"
+                    android:textColor="#2f2f2f"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/txt_productt_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_product_title"
+                    android:layout_marginTop="20dp"
+                    android:layout_toEndOf="@id/img_product_basket"
+                    android:maxLines="1"
+                    android:text="@string/product_count_basket"
+                    android:textColor="#2f2f2f"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/edt_product_number"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_product_title"
+                    android:layout_marginRight="10dp"
+                    android:layout_toEndOf="@id/txt_productt_number" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relative_properties_basket"
+                android:background="@color/backgroundApp">
+
+                <RelativeLayout
+                    android:padding="8dp"
+                    android:id="@id/relative_total_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="قیمت کل"
+                        android:textSize="13sp" />
+
+                    <RelativeLayout
+                        android:id="@+id/relative_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true">
+
+                        <TextView
+                            android:id="@+id/txt_total_price_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/txt_total_price_toman"
+                            android:paddingLeft="8dp"
+                            android:text="8,000"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/txt_total_price_toman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="@string/toman" />
+
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:background="@color/backgroundDiscount"
+                    android:padding="8dp"
+                    android:id="@+id/relative_total_discount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/relative_total_price">
+
+                    <TextView
+                        android:id="@+id/txt_total_price_discount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="@string/txt_discount_basket"
+                        android:textColor="@color/txt_discount_color"
+                        android:textSize="13sp" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true">
+
+                        <TextView
+                            android:id="@+id/txt_total_price_value_discount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_toRightOf="@+id/txt_total_price_discount_toman"
+                            android:text="2,000"
+                            android:textColor="@color/txt_discount_color"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/txt_total_price_discount_toman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="@string/toman"
+                            android:textColor="@color/txt_discount_color" />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_final"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relative_total"
+                android:background="@color/backgroundApp"
+                android:padding="8dp"
+                android:layout_marginTop="1dp">
+
+                <RelativeLayout
+                    android:id="@id/relative_total_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_final_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="قیمت نهایی"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="13sp" />
+
+                    <RelativeLayout
+                        android:id="@+id/relative_final_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true">
+
+                        <TextView
+                            android:textColor="@color/colorPrimary"
+                            android:id="@+id/txt_final_price_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/txt_final_price_toman"
+                            android:paddingLeft="8dp"
+                            android:text="6,000"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:textColor="@color/colorPrimary"
+                            android:id="@+id/txt_final_price_toman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="@string/toman" />
+
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_below="@id/relative_final"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="14sp"
+                    android:padding="10dp"
+                    android:text="@string/txt_product_remove_basket"
+                    android:textColor="@color/txt_discount_color"
+                    android:id="@+id/txt_product_remove_basket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
