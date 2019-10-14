@@ -21,6 +21,9 @@
         <activity android:name=".ProductDetails">
 
         </activity>
+        <activity android:name=".BasketActivity">
+
+        </activity>
     </application>
 
 </manifest>

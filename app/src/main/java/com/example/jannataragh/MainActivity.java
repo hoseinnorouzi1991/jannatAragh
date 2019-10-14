@@ -1,6 +1,7 @@
 package com.example.jannataragh;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
             sampleNews.add(news);
         }
 
-
         recyclerView_porkhasiat.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         recyclerView_porforoosh.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 //        recyclerView.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView_porforoosh.setAdapter(recyclerAdapter);
 
         recyclerView_porkhasiat.setAdapter(recyclerAdapter);
-
 
         //swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this,R.color.colorPrimary),ContextCompat.getColor(this,R.color.colorAccent));
 
@@ -185,6 +184,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent_basket = new Intent(MainActivity.this,BasketActivity.class);
+                startActivity(intent_basket);
 //                drawerLayout.openDrawer(Gravity.START);
             }
         });
@@ -209,7 +210,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this," list product click",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.menu_basket:
-                        Toast.makeText(MainActivity.this,"basket click",Toast.LENGTH_SHORT).show();
+                        Intent intent_basket = new Intent(MainActivity.this,BasketActivity.class);
+                        startActivity(intent_basket);
                         break;
                     case R.id.submenu_setting:
                         Toast.makeText(MainActivity.this," setting click",Toast.LENGTH_SHORT).show();
@@ -271,6 +273,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.submenu_aboutUs:
                 return true;
+            case R.id.menu_basket:
+            {
+                Intent intent_basket = new Intent(MainActivity.this,BasketActivity.class);
+                startActivity(intent_basket);
+            }
         }
         if (item.getTitle() == "Add") {
             //Toast.makeText(this, "clicked add", Toast.LENGTH_SHORT).show();

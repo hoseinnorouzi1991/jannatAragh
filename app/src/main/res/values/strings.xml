@@ -22,4 +22,5 @@
     <string name="product_count_basket" >تعداد</string>
     <string name="txt_discount_basket">تخفیف</string>
     <string name="txt_product_remove_basket">حذف</string>
+    <string name="final_buy">خرید خود را نهایی کنید</string>
 </resources>
