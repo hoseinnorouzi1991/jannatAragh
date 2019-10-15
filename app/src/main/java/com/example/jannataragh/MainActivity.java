@@ -207,12 +207,12 @@ public class MainActivity extends AppCompatActivity {
 
                 switch(id)
                 {
-                    case R.id.home:
-                        Toast.makeText(MainActivity.this," home click", Toast.LENGTH_SHORT).show();
+                    case R.id.menu_home:
+                        drawerLayout.closeDrawer(Gravity.START);
                         break;
-                    case R.id.menu_list_product:
-                        Toast.makeText(MainActivity.this," list product click",Toast.LENGTH_SHORT).show();
-                        break;
+//                    case R.id.menu_list_product:
+//                        Toast.makeText(MainActivity.this," list product click",Toast.LENGTH_SHORT).show();
+//                        break;
                     case R.id.menu_basket:
                         Intent intent_basket = new Intent(MainActivity.this,BasketActivity.class);
                         startActivity(intent_basket);

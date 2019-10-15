@@ -22,7 +22,6 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
     Context context;
 
 
-
     public BasketAdapter(ArrayList<basket> news, Context context){
 
         this.newsArrayList = news;

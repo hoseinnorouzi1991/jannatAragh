@@ -23,7 +23,11 @@
     <string name="txt_discount_basket">تخفیف</string>
     <string name="txt_product_remove_basket">حذف</string>
     <string name="final_buy">خرید خود را نهایی کنید</string>
-    
+    <string name="menu_aboutUs">درباره ما</string>
+    <string name="menu_setting">تنظیمات</string>
+    <string name="menu_basket">سبد خرید</string>
+    <string name="menu_home">خانه</string>
+
     <string-array name="numbers">
         <item>1</item>
         <item>2</item>

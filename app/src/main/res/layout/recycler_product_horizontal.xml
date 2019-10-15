@@ -95,12 +95,12 @@
                     android:textSize="12sp"
                     tools:text="@string/toman" />
 
-                <ImageView
-                    android:id="@+id/cardView_basket"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_margin="0dp"
-                    android:src="@drawable/ic_shopping_basket_black_24dp" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/cardView_basket"-->
+                    <!--android:layout_width="25dp"-->
+                    <!--android:layout_height="25dp"-->
+                    <!--android:layout_margin="0dp"-->
+                    <!--android:src="@drawable/ic_shopping_basket_black_24dp" />-->
 
 
             </RelativeLayout>
