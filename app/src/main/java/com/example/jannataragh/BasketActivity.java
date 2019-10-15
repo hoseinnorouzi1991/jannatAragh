@@ -1,5 +1,6 @@
 package com.example.jannataragh;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -32,7 +34,7 @@ public class BasketActivity extends AppCompatActivity {
         recyclerView_basket = (RecyclerView)findViewById(R.id.recycler_basket);
         arrayList_basket = new ArrayList<>();
         relativeFinalBuy = (RelativeLayout)findViewById(R.id.relative_final_buy);
-//        spinner = (Spinner)findViewById(R.id.sp_number_product_basket);
+
 
 //        Integer[] items = new Integer[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
 //        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, items);

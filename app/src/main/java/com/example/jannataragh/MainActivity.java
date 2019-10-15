@@ -21,6 +21,7 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView_porkhasiat;
     RecyclerAdapter recyclerAdapter;
     ArrayList<News> sampleNews;
+
+    int verticalOffsetTotal;
 
     SwipeRefreshLayout swipeRefreshLayout;
 
@@ -158,8 +161,9 @@ public class MainActivity extends AppCompatActivity {
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                //Log.d(AnimateToolbar.class.getSimpleName(), "onOffsetChanged: verticalOffset: " + verticalOffset);
+                Log.d(MainActivity.class.getSimpleName(), "onOffsetChanged: verticalOffset: " + verticalOffset);
 
+                verticalOffsetTotal = verticalOffset;
                 //  Vertical offset == 0 indicates appBar is fully expanded.
                 if (Math.abs(verticalOffset) > 200) {
                     appBarExpanded = false;
@@ -252,13 +256,19 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem basket = collapsedMenu.findItem(R.id.menu_basket);
 
-        if(appBarExpanded)
-        {
-            basket.setVisible(false);
-        }
-        else
-        {
+//        if(appBarExpanded)
+//        {
+//            basket.setVisible(false);
+//        }
+//        else
+//        {
+//            basket.setVisible(true);
+//        }
+
+        if (Math.abs(verticalOffsetTotal) > 340) {
             basket.setVisible(true);
+        } else {
+            basket.setVisible(false);
         }
 
         return true;
@@ -305,3 +315,12 @@ public class MainActivity extends AppCompatActivity {
 }
 
 //https://blog.iamsuleiman.com/toolbar-animation-with-android-design-support-library/
+
+/*
+links:
+rate
+https://www.freecodecamp.org/news/30-new-android-libraries-released-in-the-spring-of-2017-which-deserve-your-attention-faea359a1915/
+
+search
+https://uxplanet.org/top-15-search-github-ui-libraries-and-components-java-swift-8d7403e73aa8
+ */

@@ -7,8 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,8 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
 
     ArrayList<basket> newsArrayList = new ArrayList<>();
     Context context;
+
+
 
     public BasketAdapter(ArrayList<basket> news, Context context){
 
@@ -33,15 +37,19 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final BasketAdapter.NewsViewHolder newsViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final BasketAdapter.NewsViewHolder productViewHolder, final int i) {
 
         basket basket = newsArrayList.get(i);
-        newsViewHolder.txtProductTitle.setText(basket.getTitle());
-        newsViewHolder.txtTotalPriceValue.setText(basket.getTotalPrice());
-        newsViewHolder.txtTotalPriceValueDiscount.setText(basket.getDiscount());
-        newsViewHolder.txtFinalPriceValue.setText(basket.getFinalPrice());
+        productViewHolder.txtProductTitle.setText(basket.getTitle());
+        productViewHolder.txtTotalPriceValue.setText(basket.getTotalPrice());
+        productViewHolder.txtTotalPriceValueDiscount.setText(basket.getDiscount());
+        productViewHolder.txtFinalPriceValue.setText(basket.getFinalPrice());
 
-        newsViewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+        ArrayAdapter<CharSequence> spinerAdaper = ArrayAdapter.createFromResource(MainActivity.context,R.array.numbers,android.R.layout.simple_spinner_item);
+        spinerAdaper.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        productViewHolder.spinnerNumber.setAdapter(spinerAdaper);
+
+        productViewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.context,ProductDetails.class);
@@ -49,6 +57,8 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
                 Toast.makeText(context,i+"",Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
     }
 
@@ -67,6 +77,7 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
         public TextView txtFinalPriceValue;
         //public TextView txtProductRemoveBasket;
         public RelativeLayout relativeLayout;
+        public Spinner spinnerNumber;
 
 
 
@@ -80,6 +91,7 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
             txtFinalPriceValue = (TextView)itemView.findViewById(R.id.txt_final_price_value);
             //txtProductRemoveBasket = (TextView)itemView.findViewById(R.id.txt_product_remove_basket);
             relativeLayout = (RelativeLayout)itemView.findViewById(R.id.relative);
+            spinnerNumber = (Spinner)itemView.findViewById(R.id.sp_number_product_basket);
         }
     }
 
