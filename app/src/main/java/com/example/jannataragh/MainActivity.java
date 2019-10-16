@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imgMenu;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    FloatingActionButton fab;
+//    FloatingActionButton fab;
 
     private CollapsingToolbarLayout collapsingToolbar;
     private AppBarLayout appBarLayout;
@@ -61,32 +61,33 @@ public class MainActivity extends AppCompatActivity {
 
     static Context context;
 
+    MenuItem menuItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-
         context = getApplicationContext();
 
-        imgMenu = (ImageView)findViewById(R.id.imgHambergerMenu);
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
-        navigationView = (NavigationView)findViewById(R.id.navigationView);
-        fab = (FloatingActionButton)findViewById(R.id.fab);
+        imgMenu = (ImageView) findViewById(R.id.imgHambergerMenu);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        navigationView = (NavigationView) findViewById(R.id.navigationView);
+//        fab = (FloatingActionButton) findViewById(R.id.fab);
         //imgDrawerMenu = (ImageView)findViewById(R.id.imgDrawerMenu);
 
-        recyclerView_porkhasiat = (RecyclerView)findViewById(R.id.recycler_porkhasiat);
+        recyclerView_porkhasiat = (RecyclerView) findViewById(R.id.recycler_porkhasiat);
         recyclerView_porkhasiat.setHasFixedSize(true);
 
-        recyclerView_porforoosh = (RecyclerView)findViewById(R.id.recycler_porfroosh);
+        recyclerView_porforoosh = (RecyclerView) findViewById(R.id.recycler_porfroosh);
         recyclerView_porforoosh.setHasFixedSize(true);
         sampleNews = new ArrayList<>();
         //swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipRefreh);
 
-        for (int i = 0; i <10 ; i++) {
+        for (int i = 0; i < 10; i++) {
             News news = new News();
-            news.setId(i+1);
+            news.setId(i + 1);
             news.setTitle("عرق نعنا");
             news.setDesc("دارای خواص دارویی زیادی می باشد. در ادامه به خصوصیات آن بیشتر اشاره شده است...");
             news.setPrice("4000");
@@ -95,13 +96,13 @@ public class MainActivity extends AppCompatActivity {
             sampleNews.add(news);
         }
 
-        recyclerView_porkhasiat.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        recyclerView_porforoosh.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recyclerView_porkhasiat.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView_porforoosh.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 //        recyclerView.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
 //        recyclerView.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
 //        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL));
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        recyclerAdapter = new RecyclerAdapter(sampleNews,this);
+        recyclerAdapter = new RecyclerAdapter(sampleNews, this);
         recyclerView_porforoosh.setAdapter(recyclerAdapter);
 
         recyclerView_porkhasiat.setAdapter(recyclerAdapter);
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
 
-        Typeface typeface = ResourcesCompat.getFont(this,R.font.vazirmediumfd);
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.vazirmediumfd);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.anim_toolbar);
         setSupportActionBar(toolbar);
@@ -136,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             Drawable drawable = getResources().getDrawable(R.drawable.ic_menu_home);
             Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-            Drawable newdrawable = new BitmapDrawable(getResources(),Bitmap.createScaledBitmap(bitmap,70,70,true));
+            Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 70, 70, true));
             //newdrawable.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_ATOP);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(newdrawable);
@@ -192,14 +193,14 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_basket = new Intent(MainActivity.this,BasketActivity.class);
-                startActivity(intent_basket);
-//                drawerLayout.openDrawer(Gravity.START);
-            }
-        });
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent_basket = new Intent(MainActivity.this, BasketActivity.class);
+//                startActivity(intent_basket);
+////                drawerLayout.openDrawer(Gravity.START);
+//            }
+//        });
 //        imgMenu.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -212,8 +213,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
 
-                switch(id)
-                {
+                switch (id) {
                     case R.id.menu_home:
                         drawerLayout.closeDrawer(Gravity.START);
                         break;
@@ -221,14 +221,14 @@ public class MainActivity extends AppCompatActivity {
 //                        Toast.makeText(MainActivity.this," list product click",Toast.LENGTH_SHORT).show();
 //                        break;
                     case R.id.menu_basket:
-                        Intent intent_basket = new Intent(MainActivity.this,BasketActivity.class);
+                        Intent intent_basket = new Intent(MainActivity.this, BasketActivity.class);
                         startActivity(intent_basket);
                         break;
                     case R.id.submenu_setting:
-                        Toast.makeText(MainActivity.this," setting click",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, " setting click", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.submenu_aboutUs:
-                        Toast.makeText(MainActivity.this," about us click",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, " about us click", Toast.LENGTH_SHORT).show();
                         break;
 
                 }
@@ -237,7 +237,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     @Override
@@ -261,30 +260,20 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.basket, menu);
         collapsedMenu = menu;
 
-        MenuItem basket = collapsedMenu.findItem(R.id.menu_basket);
 
-        if (Math.abs(verticalOffsetTotal) > 340) {
-            basket.setVisible(true);
+        menuItem = menu.findItem(R.id.menu_basket);
 
-            final MenuItem menuItem = menu.findItem(R.id.menu_basket);
+        View actionView = menuItem.getActionView();
+        textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
 
+        setupBadge();
 
-            View actionView =  menuItem.getActionView();
-            textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
-
-            setupBadge();
-
-            actionView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onOptionsItemSelected(menuItem);
-                }
-            });
-
-        } else {
-            basket.setVisible(false);
-        }
-
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
 
 
         return true;
@@ -315,9 +304,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.submenu_aboutUs:
                 return true;
-            case R.id.menu_basket:
-            {
-                Intent intent_basket = new Intent(MainActivity.this,BasketActivity.class);
+            case R.id.menu_basket: {
+                Intent intent_basket = new Intent(MainActivity.this, BasketActivity.class);
                 startActivity(intent_basket);
             }
         }
@@ -330,16 +318,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onBackPressed() {
 
-        if(drawerLayout.isDrawerOpen(Gravity.START))
-        {
+        if (drawerLayout.isDrawerOpen(Gravity.START)) {
             drawerLayout.closeDrawer(Gravity.START);
-        }
-        else
-        {
+        } else {
             super.onBackPressed();
         }
 
