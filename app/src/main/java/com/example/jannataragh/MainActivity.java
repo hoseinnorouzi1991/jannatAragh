@@ -33,6 +33,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import ru.nikartm.support.ImageBadgeView;
+
 public class MainActivity extends AppCompatActivity {
 
     ImageView imgMenu;
@@ -63,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
 
     MenuItem menuItem;
 
+    TextView txtBestSeller,txtBestProperty;
+
+    ImageBadgeView ibv_basket;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
         context = getApplicationContext();
 
+        ibv_basket = (ImageBadgeView)findViewById(R.id.ibv_basket);
+        txtBestSeller = (TextView)findViewById(R.id.txt_best_seller);
+        txtBestProperty = (TextView)findViewById(R.id.txt_best_property);
         imgMenu = (ImageView) findViewById(R.id.imgHambergerMenu);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         navigationView = (NavigationView) findViewById(R.id.navigationView);
@@ -208,6 +217,30 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+        ibv_basket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_basket = new Intent(MainActivity.this, BasketActivity.class);
+                startActivity(intent_basket);
+            }
+        });
+
+        txtBestSeller.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_best_seller = new Intent(MainActivity.this,BestSellerActivity.class);
+                startActivity(intent_best_seller);
+            }
+        });
+
+        txtBestProperty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_best_property = new Intent(MainActivity.this,BestPropertyActivity.class);
+                startActivity(intent_best_property);
+            }
+        });
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -220,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
 //                    case R.id.menu_list_product:
 //                        Toast.makeText(MainActivity.this," list product click",Toast.LENGTH_SHORT).show();
 //                        break;
-                    case R.id.menu_basket:
+                    case R.id.menu_basket_navigation:
                         Intent intent_basket = new Intent(MainActivity.this, BasketActivity.class);
                         startActivity(intent_basket);
                         break;
@@ -257,24 +290,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.basket, menu);
-        collapsedMenu = menu;
-
-
-        menuItem = menu.findItem(R.id.menu_basket);
-
-        View actionView = menuItem.getActionView();
-        textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
-
-        setupBadge();
-
-        actionView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onOptionsItemSelected(menuItem);
-            }
-        });
-
+//        getMenuInflater().inflate(R.menu.basket, menu);
+//        collapsedMenu = menu;
+//
+//        menuItem = menu.findItem(R.id.menu_basket);
+//
+//        View actionView = menuItem.getActionView();
+//        textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
+//
+//
+//
+//        //Toast.makeText(MainActivity.this,"break point",Toast.LENGTH_SHORT).show();
+//
+//        actionView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onOptionsItemSelected(menuItem);
+//            }
+//        });
+//
+//        setupBadge();
 
         return true;
     }
@@ -304,10 +339,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.submenu_aboutUs:
                 return true;
-            case R.id.menu_basket: {
-                Intent intent_basket = new Intent(MainActivity.this, BasketActivity.class);
-                startActivity(intent_basket);
-            }
         }
         if (item.getTitle() == "Add") {
             //Toast.makeText(this, "clicked add", Toast.LENGTH_SHORT).show();

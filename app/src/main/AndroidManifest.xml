@@ -24,6 +24,12 @@
         <activity android:name=".BasketActivity">
 
         </activity>
+        <activity android:name=".BestSellerActivity">
+
+        </activity>
+        <activity android:name=".BestPropertyActivity">
+
+        </activity>
     </application>
 
 </manifest>

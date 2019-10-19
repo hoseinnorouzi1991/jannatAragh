@@ -15,7 +15,7 @@
 
     <item
         android:icon="@drawable/ic_shopping_basket_black_24dp"
-        android:id="@+id/menu_basket"
+        android:id="@+id/menu_basket_navigation"
         android:title="@string/menu_basket">
 
     </item>

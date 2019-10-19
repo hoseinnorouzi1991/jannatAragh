@@ -42,9 +42,11 @@
                         android:text="@string/porforosh" />
 
                     <TextView
+                        android:id="@+id/txt_best_seller"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
+                        android:background="?attr/selectableItemBackground"
                         android:text="@string/porgorosh_list"
                         android:textColor="@color/colorAccent" />
 
@@ -63,7 +65,7 @@
                     android:layout_height="220dp"
                     android:layout_marginTop="16dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/headerdrawer"/>
+                    android:src="@drawable/headerdrawer" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -79,10 +81,12 @@
                         android:text="پر خاصیت ترین ها" />
 
                     <TextView
+                        android:id="@+id/txt_best_property"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="@string/porgorosh_list"
+                        android:background="?attr/selectableItemBackground"
+                        android:text="@string/txt_best_property_list"
                         android:textColor="@color/colorAccent" />
 
                 </RelativeLayout>
@@ -157,11 +161,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="?attr/selectableItemBackground">
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/araghiat" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/araghiat" />
                             </LinearLayout>
 
                         </android.support.v7.widget.CardView>
@@ -251,32 +256,63 @@
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackground">
+
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                            <ru.nikartm.support.ImageBadgeView
+                                android:id="@+id/ibv_basket"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_centerVertical="true"
+                                android:background="?attr/selectableItemBackground"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_shopping_cart_white_24dp"
+                                app:ibv_badgeBackground="@drawable/custom_badge"
+                                app:ibv_badgeColor="@color/colorAccent"
+                                app:ibv_badgeLimitValue="false"
+                                app:ibv_badgeTextColor="#ffffff"
+                                app:ibv_badgeTextSize="10sp"
+                                app:ibv_badgeTextStyle="bold"
+                                app:ibv_badgeValue="10"
+                                app:ibv_fixedBadgeRadius="9dp" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
                 </android.support.v7.widget.Toolbar>
 
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_marginTop="50dp"
-                android:background="@color/colorPrimary">
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_marginTop="50dp"-->
+            <!--android:background="@color/colorPrimary">-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
         </android.support.design.widget.AppBarLayout>
 
         <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:id="@+id/fab"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="@dimen/fab_margin"-->
-            <!--android:clickable="true"-->
-            <!--android:src="@drawable/ic_shopping_cart_white_24dp"-->
-            <!--app:backgroundTint="@color/colorPrimaryDark"-->
-            <!--app:fabSize="normal"-->
-            <!--app:layout_anchor="@+id/appbar"-->
-            <!--app:layout_anchorGravity="bottom|right|end" >-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--android:clickable="true"-->
+        <!--android:src="@drawable/ic_shopping_cart_white_24dp"-->
+        <!--app:backgroundTint="@color/colorPrimaryDark"-->
+        <!--app:fabSize="normal"-->
+        <!--app:layout_anchor="@+id/appbar"-->
+        <!--app:layout_anchorGravity="bottom|right|end" >-->
 
 
         <!--</android.support.design.widget.FloatingActionButton>-->

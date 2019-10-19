@@ -116,6 +116,7 @@
                     android:textSize="20sp" />
 
                 <info.hoang8f.widget.FButton
+                    android:background="?attr/selectableItemBackground"
                     android:id="@+id/btn_properties_basket"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"

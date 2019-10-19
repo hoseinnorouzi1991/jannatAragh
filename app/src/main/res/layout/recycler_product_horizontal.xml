@@ -20,7 +20,7 @@
             android:background="?attr/selectableItemBackground">
 
             <RelativeLayout
-                android:layout_width="150dp"
+                android:layout_width="160dp"
                 android:layout_height="185dp"
                 android:layoutDirection="rtl">
 
