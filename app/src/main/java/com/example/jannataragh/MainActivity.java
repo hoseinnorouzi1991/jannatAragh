@@ -11,10 +11,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -57,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
 
     ImageView imgDrawerMenu;
+    ImageView imgUser;
 
     TextView textCartItemCount;
     int mCartItemCount = 10;
@@ -83,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         imgMenu = (ImageView) findViewById(R.id.imgHambergerMenu);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         navigationView = (NavigationView) findViewById(R.id.navigationView);
+        imgUser = (ImageView)findViewById(R.id.img_user);
 //        fab = (FloatingActionButton) findViewById(R.id.fab);
         //imgDrawerMenu = (ImageView)findViewById(R.id.imgDrawerMenu);
 
@@ -233,6 +233,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        imgUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_register_user = new Intent(MainActivity.this, LoginUserActivity.class);
+                startActivity(intent_register_user);
+            }
+        });
+
         txtBestProperty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -370,4 +378,7 @@ https://www.freecodecamp.org/news/30-new-android-libraries-released-in-the-sprin
 
 search
 https://uxplanet.org/top-15-search-github-ui-libraries-and-components-java-swift-8d7403e73aa8
+
+Expand text
+https://github.com/Blogcat/Android-ExpandableTextView
  */

@@ -10,5 +10,7 @@
     <color name="txt_discount_color">#F44336</color>
     <color name="white">#FFFFFF</color>
     <color name="totalPrice">#B4F5F2F2</color>
+    <color name="colorError">#D85959</color>
+    <color name="normalText">#A8A8A8</color>
     <!--FF9800-->
 </resources>

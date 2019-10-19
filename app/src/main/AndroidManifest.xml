@@ -30,6 +30,12 @@
         <activity android:name=".BestPropertyActivity">
 
         </activity>
+        <activity android:name=".LoginUserActivity">
+
+        </activity>
+        <activity android:name=".RegisterUserActivity">
+
+        </activity>
     </application>
 
 </manifest>
