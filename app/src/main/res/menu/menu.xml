@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:icon="@drawable/ic_home_black_24dp"
         android:id="@+id/menu_home"
+        android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/menu_home">
 
     </item>
@@ -14,28 +14,38 @@
     <!--</item>-->
 
     <item
-        android:icon="@drawable/ic_shopping_basket_black_24dp"
         android:id="@+id/menu_basket_navigation"
+        android:icon="@drawable/ic_shopping_basket_black_24dp"
         android:title="@string/menu_basket">
 
     </item>
 
     <item
-        android:id="@+id/submenu_other"
-        android:title="">
-        <menu>
-                <item
-                    android:icon="@drawable/ic_settings_black_24dp"
-                    android:id="@+id/submenu_setting"
-                    android:title="@string/menu_setting">
+        android:id="@+id/menu_best_seller_navigation"
+        android:icon="@drawable/ic_star_gray_24dp"
+        android:title="@string/txt_title_best_seller">
 
-                </item>
-                <item
-                    android:icon="@drawable/ic_people_black_24dp"
-                    android:id="@+id/submenu_aboutUs"
-                    android:title="@string/menu_aboutUs">
-
-                </item>
-        </menu>
     </item>
+
+    <item
+        android:id="@+id/menu_best_property_navigation"
+        android:icon="@drawable/ic_star_gray_24dp"
+        android:title="@string/txt_title_best_property">
+
+    </item>
+
+    <item
+        android:id="@+id/submenu_setting"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/menu_setting">
+
+    </item>
+
+    <item
+        android:id="@+id/submenu_aboutUs"
+        android:icon="@drawable/ic_people_black_24dp"
+        android:title="@string/menu_aboutUs">
+
+    </item>
+
 </menu>

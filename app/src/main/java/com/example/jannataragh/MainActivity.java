@@ -249,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -257,6 +258,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (id) {
                     case R.id.menu_home:
                         drawerLayout.closeDrawer(Gravity.START);
+                        //navigationView.getMenu().getItem(0).setChecked(true);
                         break;
 //                    case R.id.menu_list_product:
 //                        Toast.makeText(MainActivity.this," list product click",Toast.LENGTH_SHORT).show();
@@ -264,12 +266,25 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.menu_basket_navigation:
                         Intent intent_basket = new Intent(MainActivity.this, BasketActivity.class);
                         startActivity(intent_basket);
+                        //navigationView.getMenu().getItem(1).setChecked(true);
                         break;
                     case R.id.submenu_setting:
                         Toast.makeText(MainActivity.this, " setting click", Toast.LENGTH_SHORT).show();
+                        //navigationView.getMenu().getItem(4).setChecked(true);
                         break;
                     case R.id.submenu_aboutUs:
                         Toast.makeText(MainActivity.this, " about us click", Toast.LENGTH_SHORT).show();
+                        //navigationView.getMenu().getItem(5).setChecked(true);
+                        break;
+                    case R.id.menu_best_property_navigation:
+                        Intent intent_best_property = new Intent(MainActivity.this,BestPropertyActivity.class);
+                        startActivity(intent_best_property);
+                        //navigationView.getMenu().getItem(3).setChecked(true);
+                        break;
+                    case R.id.menu_best_seller_navigation:
+                        Intent intent_best_seller = new Intent(MainActivity.this,BestSellerActivity.class);
+                        startActivity(intent_best_seller);
+                        //navigationView.getMenu().getItem(2).setChecked(true);
                         break;
 
                 }

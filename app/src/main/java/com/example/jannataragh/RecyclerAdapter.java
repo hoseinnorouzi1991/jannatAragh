@@ -45,7 +45,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.context,ProductDetails.class);
-                MainActivity.context.startActivity(intent);
+                context.startActivity(intent);
                 //Toast.makeText(context,i+"",Toast.LENGTH_SHORT).show();
             }
         });

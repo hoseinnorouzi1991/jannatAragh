@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardPreventCornerOverlap="true"
-        app:cardElevation="4dp">
+        app:cardElevation="2dp">
 
         <RelativeLayout
             android:layoutDirection="rtl"
@@ -22,19 +22,88 @@
             <TextView
                 android:textColor="#2f2f2f"
                 android:maxLines="1"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:id="@+id/txt_recycler_titleComments"
                 tools:text="@string/commentHead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <LinearLayout
+                android:layout_below="@id/txt_recycler_titleComments"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line">
+
+            </LinearLayout>
+
             <TextView
+                android:textSize="12sp"
                 android:layout_below="@+id/txt_recycler_titleComments"
                 android:layout_marginTop="14dp"
                 tools:text="@string/commentDesc"
                 android:id="@+id/txt_recycler_descComments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/shape_botton_style"
+                    android:paddingVertical="2dp"
+                    android:paddingHorizontal="8dp"
+                    android:id="@+id/rl_like"
+                    android:layout_toRightOf="@id/rl_dislike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_marginLeft="8dp"
+                        android:src="@drawable/ic_thumb_up_gray_24dp"
+                        android:id="@+id/img_like_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:textSize="12sp"
+                        android:layout_toLeftOf="@+id/img_like_comment"
+                        android:text="20"
+                        android:id="@+id/txt_like_counter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:paddingVertical="2dp"
+                    android:paddingHorizontal="8dp"
+                    android:background="@drawable/shape_botton_style"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/rl_dislike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_marginLeft="8dp"
+                        android:src="@drawable/ic_thumb_down_gray_24dp"
+                        android:id="@+id/img_dislike_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_toLeftOf="@id/img_dislike_comment"
+                        android:text="10"
+                        android:layout_centerVertical="true"
+                        android:textSize="12sp"
+                        android:id="@+id/txt_dislike_counter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

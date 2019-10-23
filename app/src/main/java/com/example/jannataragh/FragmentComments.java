@@ -41,6 +41,8 @@ public class FragmentComments extends Fragment {
             comments.setId(i+1);
             comments.setTitle("عنوان کامنت");
             comments.setDesc("متنی که کاربر در رابطه با نظر خود لحاظ می کند در این قسمت قرار می گیرد.");
+            comments.setLike("10");
+            comments.setDislike("5");
 
             commentsArrayList.add(comments);
         }
