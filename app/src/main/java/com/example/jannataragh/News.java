@@ -6,7 +6,14 @@ public class News {
     private String title;
     private String desc;
     private String price;
-    private String toman;
+    private String img;
+
+    public News(String title, String desc, String price,String img) {
+        this.title = title;
+        this.desc = desc;
+        this.price = price;
+        this.img = img;
+    }
 
 
     public void setId(int id) {
@@ -41,11 +48,11 @@ public class News {
         this.price = price;
     }
 
-    public String getToman() {
-        return toman;
+    public String getImg() {
+        return img;
     }
 
-    public void setToman(String toman) {
-        this.toman = toman;
+    public void setImg(String img) {
+        this.img = img;
     }
 }

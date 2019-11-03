@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -29,6 +30,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import ru.nikartm.support.ImageBadgeView;
@@ -48,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView_porforoosh;
     RecyclerView recyclerView_porkhasiat;
     RecyclerAdapter recyclerAdapter;
-    ArrayList<News> sampleNews;
+    ArrayList<News> product;
 
     int verticalOffsetTotal;
 
@@ -67,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
     TextView txtBestSeller,txtBestProperty;
 
     ImageBadgeView ibv_basket;
+
+    String url = "http://www.grafik.computertalk.ir/StoreCode/product.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,37 +105,39 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView_porforoosh = (RecyclerView) findViewById(R.id.recycler_porfroosh);
         recyclerView_porforoosh.setHasFixedSize(true);
-        sampleNews = new ArrayList<>();
+        product = new ArrayList<>();
+        recyclerView_porforoosh.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        showData();
         //swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipRefreh);
 
-        for (int i = 0; i < 10; i++) {
-            News news = new News();
-            news.setId(i + 1);
-            news.setTitle("عرق نعنا");
-            news.setDesc("دارای خواص دارویی زیادی می باشد. در ادامه به خصوصیات آن بیشتر اشاره شده است...");
-            news.setPrice("4000");
-            news.setToman("تومان");
-
-            sampleNews.add(news);
-        }
+//        for (int i = 0; i < 10; i++) {
+//            News products = new News();
+//            products.setId(i + 1);
+//            products.setTitle("عرق نعنا");
+//            products.setDesc("دارای خواص دارویی زیادی می باشد. در ادامه به خصوصیات آن بیشتر اشاره شده است...");
+//            products.setPrice("4000");
+//            products.setToman("تومان");
+//
+//            product.add(products);
+//        }
 
         recyclerView_porkhasiat.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView_porforoosh.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
 //        recyclerView.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
 //        recyclerView.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
 //        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL));
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        recyclerAdapter = new RecyclerAdapter(sampleNews, this);
-        recyclerView_porforoosh.setAdapter(recyclerAdapter);
+//        recyclerAdapter = new RecyclerAdapter(product, this);
+//        recyclerView_porforoosh.setAdapter(recyclerAdapter);
 
-        recyclerView_porkhasiat.setAdapter(recyclerAdapter);
+//        recyclerView_porkhasiat.setAdapter(recyclerAdapter);
 
         //swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this,R.color.colorPrimary),ContextCompat.getColor(this,R.color.colorAccent));
 
 //        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
 //            public void onRefresh() {
-//                sampleNews.clear();
+//                product.clear();
 //
 //                for (int i = 0; i <10 ; i++) {
 //                    News news = new News();
@@ -129,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 //                    news.setTitle("خبر ورزشی!");
 //                    news.setDesc("این یک خبر ورزشی تستی می باشد برای تست ریسایکلر ویوو");
 //
-//                    sampleNews.add(news);
+//                    product.add(news);
 //                }
 //
 //                recyclerAdapter.notifyDataSetChanged();
@@ -381,6 +397,69 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
 
+    }
+
+    private void showData() {
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject jsonObject = response.getJSONObject(i);
+                        product.add(new News(jsonObject.getString("name"),
+                                jsonObject.getString("desc"),
+                                jsonObject.getString("price"),
+                                jsonObject.getString("img")));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                recyclerAdapter = new RecyclerAdapter(product, MainActivity.this);
+                recyclerView_porforoosh.setAdapter(recyclerAdapter);
+
+                recyclerView_porkhasiat.setAdapter(recyclerAdapter);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this, "مشکلی رخ داده است.اتصال اینترنت خود را بررسی کنید.", Toast.LENGTH_SHORT).show();
+                //progressDialog.dismiss();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+        requestQueue.add(request);
+
+//        Animation animation = null;
+//        animation = AnimationUtils.loadAnimation(MainActivity.context, R.anim.listview);
+//        animation.setDuration(200);
+//        listView.startAnimation(animation);
+//        animation = null;
+
+
+    }
+
+
+    private class Task extends AsyncTask<Void, Void, String[]> {
+
+        @Override
+        protected String[] doInBackground(Void... voids) {
+            showData();
+            return new String[0];
+        }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            // Call setRefreshing(false) when the list has been refreshed.
+            //mRefreshLayout.finishRefreshing();
+            //runLayoutAnimation(recycler);
+            super.onPostExecute(result);
+        }
     }
 }
 
