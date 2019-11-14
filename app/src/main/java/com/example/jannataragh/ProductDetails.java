@@ -2,6 +2,7 @@ package com.example.jannataragh;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
@@ -40,6 +41,7 @@ public class ProductDetails extends AppCompatActivity {
     String url = "http://www.grafik.computertalk.ir/StoreCode/SelectProductById.php";
 
     JSONObject jsonObjectSendID;
+    Bundle bundle = new Bundle();
 
     public static Context context;
     @Override
@@ -57,14 +59,15 @@ public class ProductDetails extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        SendAndReceiveData();
+
+        //SendAndReceiveData();
         //Toast.makeText(ProductDetails.this,id,Toast.LENGTH_SHORT).show();
 
         context = getApplicationContext();
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.htab_toolbar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle("عنوان محصول");
+        //if (getSupportActionBar() != null) getSupportActionBar().setTitle("عنوان محصول");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
@@ -126,7 +129,6 @@ public class ProductDetails extends AppCompatActivity {
 
     public void SendAndReceiveData()
     {
-
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -134,11 +136,9 @@ public class ProductDetails extends AppCompatActivity {
                     if (getSupportActionBar() != null)
                         getSupportActionBar().setTitle(response.getString("name"));
 
-                    Bundle bundle = new Bundle();
                     bundle.putString("name",response.getString("name"));
                     //bundle.putString("desc",response.getString("desc"));
-                    FragmentProperties fragmentProperties = new FragmentProperties();
-                    fragmentProperties.setArguments(bundle);
+
                     //response.getString("name");
 
                 } catch (JSONException e) {
@@ -190,6 +190,8 @@ public class ProductDetails extends AppCompatActivity {
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
         public ViewPagerAdapter(FragmentManager manager) {
+
+
             super(manager);
         }
 
@@ -212,6 +214,33 @@ public class ProductDetails extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    private class Task extends AsyncTask<Void, Void, String[]> {
+
+        @Override
+        protected String[] doInBackground(Void... voids) {
+            SendAndReceiveData();
+            return new String[0];
+        }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            // Call setRefreshing(false) when the list has been refreshed.
+            //mRefreshLayout.finishRefreshing();
+            //runLayoutAnimation(recycler);
+            super.onPostExecute(result);
+        }
+    }
+
+    private OnAboutDataReceivedListener mAboutDataListener;
+
+    public interface OnAboutDataReceivedListener {
+        void onDataReceived(News model);
+    }
+
+    public void setAboutDataListener(OnAboutDataReceivedListener listener) {
+        this.mAboutDataListener = listener;
     }
 
 //    public static class DummyFragment extends Fragment {
@@ -245,3 +274,6 @@ public class ProductDetails extends AppCompatActivity {
 //        }
 //    }
 }
+
+
+//  https://stackoverflow.com/questions/46050185/android-pass-data-from-activity-to-fragment-in-viewpager
