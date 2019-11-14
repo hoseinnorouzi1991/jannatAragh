@@ -16,6 +16,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +37,9 @@ public class ProductDetails extends AppCompatActivity {
 
     private static final String TAG = ProductDetails.class.getSimpleName();
 
+    String url = "http://www.grafik.computertalk.ir/StoreCode/SelectProductById.php";
+
+    JSONObject jsonObjectSendID;
 
     public static Context context;
     @Override
@@ -32,7 +49,16 @@ public class ProductDetails extends AppCompatActivity {
 
         Intent intent = getIntent();
         String id =  intent.getStringExtra("id");
-        Toast.makeText(ProductDetails.this,id,Toast.LENGTH_SHORT).show();
+
+        url = url + "?id="+id;
+        try {
+            jsonObjectSendID = new JSONObject();
+            jsonObjectSendID.put("id",id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        SendAndReceiveData();
+        //Toast.makeText(ProductDetails.this,id,Toast.LENGTH_SHORT).show();
 
         context = getApplicationContext();
 
@@ -49,6 +75,8 @@ public class ProductDetails extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.htab_collapse_toolbar);
+
+
 /*
         try {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.araghiat3);
@@ -94,6 +122,40 @@ public class ProductDetails extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void SendAndReceiveData()
+    {
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if (getSupportActionBar() != null)
+                        getSupportActionBar().setTitle(response.getString("name"));
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name",response.getString("name"));
+                    //bundle.putString("desc",response.getString("desc"));
+                    FragmentProperties fragmentProperties = new FragmentProperties();
+                    fragmentProperties.setArguments(bundle);
+                    //response.getString("name");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ProductDetails.this,"not find",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(request);
+
+
     }
 
     private void setupViewPager(ViewPager viewPager) {

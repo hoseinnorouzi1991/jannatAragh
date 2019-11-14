@@ -8,6 +8,18 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -17,9 +29,11 @@ public class BestPropertyActivity extends AppCompatActivity {
 
     RecyclerView recyclerBestProperty;
     RecyclerAdapter recyclerAdapter;
-    ArrayList<News> newsArrayList;
+    ArrayList<News> productArrayList;
 
     ImageBadgeView ibv_basket;
+
+    String url = "http://www.grafik.computertalk.ir/StoreCode/product.php";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,7 +45,11 @@ public class BestPropertyActivity extends AppCompatActivity {
         recyclerBestProperty = (RecyclerView)findViewById(R.id.recycler_best_property);
         recyclerBestProperty.setHasFixedSize(true);
 
-        newsArrayList = new ArrayList<>();
+        productArrayList = new ArrayList<>();
+
+        recyclerBestProperty.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
+        showData();
+
 
 //        for (int i=0; i<10;i++)
 //        {
@@ -59,5 +77,47 @@ public class BestPropertyActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void showData() {
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject jsonObject = response.getJSONObject(i);
+                        productArrayList.add(new News(jsonObject.getString("id"),
+                                jsonObject.getString("name"),
+                                jsonObject.getString("desc"),
+                                jsonObject.getString("price"),
+                                jsonObject.getString("img")));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                recyclerAdapter = new RecyclerAdapter(productArrayList, MainActivity.context);
+                recyclerBestProperty.setAdapter(recyclerAdapter);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(BestPropertyActivity.this, "مشکلی رخ داده است.اتصال اینترنت خود را بررسی کنید.", Toast.LENGTH_SHORT).show();
+                //progressDialog.dismiss();
+            }
+        });
+
+        RequestQueue requestQueue1 = Volley.newRequestQueue(MainActivity.context);
+        requestQueue1.add(request);
+
+//        Animation animation = null;
+//        animation = AnimationUtils.loadAnimation(MainActivity.context, R.anim.listview);
+//        animation.setDuration(200);
+//        listView.startAnimation(animation);
+//        animation = null;
     }
 }

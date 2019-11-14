@@ -41,7 +41,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final NewsViewHolder newsViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final NewsViewHolder newsViewHolder, int i) {
 
         final News model = newsArrayList.get(i);
         newsViewHolder.txtTitle.setText(model.getTitle());
@@ -67,7 +67,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.context,ProductDetails.class);
-                intent.putExtra("id",model.getId()+"");
+                intent.putExtra("id", model.getId());
                 context.startActivity(intent);
                 //Toast.makeText(context,i+"",Toast.LENGTH_SHORT).show();
             }
@@ -98,6 +98,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
             txtDesc = (TextView)itemView.findViewById(R.id.txt_recycler_descNews);
             txtPrice = (TextView)itemView.findViewById(R.id.txt_recycler_price);
             relativeLayout = (RelativeLayout)itemView.findViewById(R.id.relative);
+
         }
     }
 }

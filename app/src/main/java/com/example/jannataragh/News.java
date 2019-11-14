@@ -1,14 +1,17 @@
 package com.example.jannataragh;
 
+import com.android.volley.toolbox.StringRequest;
+
 public class News {
 
-    private int id;
+    private String id;
     private String title;
     private String desc;
     private String price;
     private String img;
 
-    public News(String title, String desc, String price,String img) {
+    public News(String id,String title, String desc, String price,String img) {
+        this.id = id;
         this.title = title;
         this.desc = desc;
         this.price = price;
@@ -16,11 +19,11 @@ public class News {
     }
 
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

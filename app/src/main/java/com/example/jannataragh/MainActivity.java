@@ -36,6 +36,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.rbddevs.splashy.Splashy;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -87,6 +88,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Splashy splashy = new Splashy(this);
+        splashy.setLogo(R.drawable.aragh)
+                .setTitle("عرقیات جنت شهر")
+                .setTitleColor("#FFFFFF")
+                .setSubTitle("محصولات کاملا ارگانیک و بدون ناخالصی")
+                .setSubTitleColor("#FFFFFF")
+                .setProgressColor("#FFFFFF")
+                .showProgress(true)
+                .setBackgroundResource(R.color.colorPrimary)
+                .setFullScreen(true)
+                .setTime(2000)
+                .show();
 
         context = getApplicationContext();
 
@@ -408,7 +421,8 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
-                        product.add(new News(jsonObject.getString("name"),
+                        product.add(new News(jsonObject.getString("id"),
+                                jsonObject.getString("name"),
                                 jsonObject.getString("desc"),
                                 jsonObject.getString("price"),
                                 jsonObject.getString("img")));

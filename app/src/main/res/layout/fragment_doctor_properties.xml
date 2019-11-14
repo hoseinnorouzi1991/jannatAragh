@@ -23,7 +23,7 @@
                 android:layoutDirection="rtl">
 
                 <TextView
-                    android:id="@+id/txt_properties_product_title"
+                    android:id="@+id/txt_properties_doctor_product_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/title_properties_doctor"
