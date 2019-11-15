@@ -27,10 +27,9 @@
             app:titleEnabled="false">
 
             <ImageView
-                android:id="@+id/htab_header"
+                android:id="@+id/img_htab_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/araghiat3"
                 android:fitsSystemWindows="true"
                 android:scaleType="fitCenter"
                 app:layout_collapseMode="parallax" />

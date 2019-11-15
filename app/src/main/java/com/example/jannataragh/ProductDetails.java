@@ -2,8 +2,11 @@ package com.example.jannataragh;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,6 +29,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +43,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.nikartm.support.ImageBadgeView;
+
 public class ProductDetails extends AppCompatActivity {
 
     private static final String TAG = ProductDetails.class.getSimpleName();
@@ -42,8 +53,20 @@ public class ProductDetails extends AppCompatActivity {
 
     JSONObject jsonObjectSendID;
     Bundle bundle = new Bundle();
+    ImageView imgHeader;
 
     public static Context context;
+
+    private DataReceivedListener DataListener;
+
+    public interface DataReceivedListener {
+        void onDataReceived(JSONObject jsonObject);
+    }
+
+    public void setAboutDataListener(DataReceivedListener listener) {
+        this.DataListener = listener;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,11 +83,13 @@ public class ProductDetails extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        new Task().execute();
         //SendAndReceiveData();
         //Toast.makeText(ProductDetails.this,id,Toast.LENGTH_SHORT).show();
 
         context = getApplicationContext();
 
+        imgHeader = (ImageView) findViewById(R.id.img_htab_header);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.htab_toolbar);
         setSupportActionBar(toolbar);
         //if (getSupportActionBar() != null) getSupportActionBar().setTitle("عنوان محصول");
@@ -136,8 +161,28 @@ public class ProductDetails extends AppCompatActivity {
                     if (getSupportActionBar() != null)
                         getSupportActionBar().setTitle(response.getString("name"));
 
-                    bundle.putString("name",response.getString("name"));
-                    //bundle.putString("desc",response.getString("desc"));
+
+                    Glide.with(MainActivity.context).load("http://www.grafik.computertalk.ir/"+response.getString("img"))
+                            .listener(new RequestListener<Drawable>() {
+                                @Override
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                    //progressBar.setVisibility(View.GONE);
+                                    return false;
+                                }
+                            }).into(imgHeader);
+//                   bundle.putString("name",response.getString("name"));
+//                   bundle.putString("desc",response.getString("desc"));
+
+                    if (DataListener != null)
+                    {
+                        DataListener.onDataReceived(response);
+                    }
+
 
                     //response.getString("name");
 
@@ -160,6 +205,9 @@ public class ProductDetails extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+
+
         adapter.addFrag(new FragmentProperties(), "مشخصات");
         adapter.addFrag(new FragmentDoctorProperties(), "مشخصات درمانی");
         adapter.addFrag(new FragmentComments(), "نظرات کاربران");
@@ -190,8 +238,6 @@ public class ProductDetails extends AppCompatActivity {
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
         public ViewPagerAdapter(FragmentManager manager) {
-
-
             super(manager);
         }
 
@@ -233,15 +279,7 @@ public class ProductDetails extends AppCompatActivity {
         }
     }
 
-    private OnAboutDataReceivedListener mAboutDataListener;
 
-    public interface OnAboutDataReceivedListener {
-        void onDataReceived(News model);
-    }
-
-    public void setAboutDataListener(OnAboutDataReceivedListener listener) {
-        this.mAboutDataListener = listener;
-    }
 
 //    public static class DummyFragment extends Fragment {
 //        int color;

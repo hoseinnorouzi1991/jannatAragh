@@ -12,27 +12,32 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FragmentProperties extends Fragment implements ProductDetails.OnAboutDataReceivedListener{
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    String name1="12",desc;
+public class FragmentProperties extends Fragment implements ProductDetails.DataReceivedListener{
+
+    String title,desc,price;
     RelativeLayout relativeProperties;
     TextView txtPropertyProductTitle;
     TextView txtPropertiesExplain;
     TextView txtPropertiesPrice;
-    Activity mActivity;
+    
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        Bundle bundle = new Bundle();
-        bundle = getArguments();
+        View layout = inflater.inflate(R.layout.fragment_properties,container,false);
+//        Bundle bundle = new Bundle();
+//        bundle = getArguments();
+//
+//        if (bundle != null) {
+//            String name = bundle.getString("name");
+//            Toast.makeText(MainActivity.context, name, Toast.LENGTH_SHORT).show();
+//        }
 
-        if (bundle != null) {
-            String name = bundle.getString("name");
-            Toast.makeText(MainActivity.context, name, Toast.LENGTH_SHORT).show();
-        }
-        return inflater.inflate(R.layout.fragment_properties,container,false);
+        return layout;
 
     }
 
@@ -40,7 +45,7 @@ public class FragmentProperties extends Fragment implements ProductDetails.OnAbo
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mActivity = (ProductDetails) getActivity();
+        ProductDetails mActivity = (ProductDetails) getActivity();
         mActivity.setAboutDataListener(this);
     }
 
@@ -59,9 +64,14 @@ public class FragmentProperties extends Fragment implements ProductDetails.OnAbo
     }
 
     @Override
-    public void onDataReceived(News model) {
-        txtPropertyProductTitle.setText(model.getTitle());
-        txtPropertiesExplain.setText(model.getDesc());
-        txtPropertiesPrice.setText(model.getPrice());
+    public void onDataReceived(JSONObject jsonObject) {
+        try {
+            txtPropertyProductTitle.setText(jsonObject.getString("name"));
+            txtPropertiesExplain.setText(jsonObject.getString("desc"));
+            txtPropertiesPrice.setText(jsonObject.getString("price"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }
