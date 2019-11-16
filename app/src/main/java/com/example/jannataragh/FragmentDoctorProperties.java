@@ -10,13 +10,20 @@ import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class FragmentDoctorProperties extends Fragment {
+
+public class FragmentDoctorProperties extends Fragment implements ProductDetails.dataReceivedListenerDoctorProperties{
 
     RelativeLayout relativePropertiesDoctor;
+
+    TextView txtExpandableText;
+    ExpandableTextView expTv1;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -24,19 +31,42 @@ public class FragmentDoctorProperties extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        ProductDetails mActivity = (ProductDetails) getActivity();
+        mActivity.setDataReceivedListenerDoctorProperties(FragmentDoctorProperties.this);
+    }
+
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         relativePropertiesDoctor = (RelativeLayout)view.findViewById(R.id.relative_properties_doctor);
+        txtExpandableText = (TextView)view.findViewById(R.id.expandable_text);
 
         relativePropertiesDoctor.setRotationY(180);
 
 // sample code snippet to set the text content on the ExpandableTextView
-        ExpandableTextView expTv1 = (ExpandableTextView) view.findViewById(R.id.expand_text_view)
+
+        expTv1 = (ExpandableTextView) view.findViewById(R.id.expand_text_view)
                 .findViewById(R.id.expand_text_view);
 
 // IMPORTANT - call setText on the ExpandableTextView to set the text content to display
-        expTv1.setText(getString(R.string.properties_doctor_desc));
 
+
+    }
+
+    @Override
+    public void onDataRecievedDoctorProperties(JSONObject jsonObject) {
+        try {
+            //txtExpandableText.setText(jsonObject.getString("health_property"));
+
+            //expTv1.setText(getString(R.string.properties_doctor_desc));
+            expTv1.setText(jsonObject.getString("health_property"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

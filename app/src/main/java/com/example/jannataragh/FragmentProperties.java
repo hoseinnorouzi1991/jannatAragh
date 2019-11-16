@@ -1,6 +1,7 @@
 package com.example.jannataragh;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,7 +23,7 @@ public class FragmentProperties extends Fragment implements ProductDetails.DataR
     TextView txtPropertyProductTitle;
     TextView txtPropertiesExplain;
     TextView txtPropertiesPrice;
-    
+
 
     @Nullable
     @Override
@@ -46,8 +47,9 @@ public class FragmentProperties extends Fragment implements ProductDetails.DataR
         super.onCreate(savedInstanceState);
 
         ProductDetails mActivity = (ProductDetails) getActivity();
-        mActivity.setAboutDataListener(this);
+        mActivity.setAboutDataListener(FragmentProperties.this);
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -72,6 +74,5 @@ public class FragmentProperties extends Fragment implements ProductDetails.DataR
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 }

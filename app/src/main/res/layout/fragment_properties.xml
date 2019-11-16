@@ -52,7 +52,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/img_properties_fav"
                         android:maxLines="1"
-                        android:text="@string/title_properties"
+                        tools:text="@string/title_properties"
                         android:textColor="#2f2f2f"
                         android:textSize="18sp" />
 
@@ -80,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@string/txt_properties_explain" />
+                    tools:text="@string/txt_properties_explain" />
 
                 <LinearLayout
                     android:id="@+id/line"
@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line"
                     android:layout_toRightOf="@id/txt_properties_toman"
-                    android:text="@string/price"
+                    tools:text="@string/price"
                     android:textColor="#4CAF50"
                     android:textSize="20sp"
                     android:layout_marginLeft="10dp"/>

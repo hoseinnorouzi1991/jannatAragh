@@ -67,6 +67,17 @@ public class ProductDetails extends AppCompatActivity {
         this.DataListener = listener;
     }
 
+    private dataReceivedListenerDoctorProperties dataDoctorPropertiesListener;
+
+    public interface dataReceivedListenerDoctorProperties{
+        void onDataRecievedDoctorProperties(JSONObject jsonObject);
+    }
+
+    public void setDataReceivedListenerDoctorProperties(dataReceivedListenerDoctorProperties doctorListener)
+    {
+        this.dataDoctorPropertiesListener = doctorListener;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,6 +149,8 @@ public class ProductDetails extends AppCompatActivity {
                         // TODO: 31/03/17
                         break;
                 }
+
+                new Task().execute();
             }
 
             @Override
@@ -183,7 +196,10 @@ public class ProductDetails extends AppCompatActivity {
                         DataListener.onDataReceived(response);
                     }
 
-
+                    if (dataDoctorPropertiesListener != null)
+                    {
+                        dataDoctorPropertiesListener.onDataRecievedDoctorProperties(response);
+                    }
                     //response.getString("name");
 
                 } catch (JSONException e) {
@@ -205,8 +221,6 @@ public class ProductDetails extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-
 
         adapter.addFrag(new FragmentProperties(), "مشخصات");
         adapter.addFrag(new FragmentDoctorProperties(), "مشخصات درمانی");
