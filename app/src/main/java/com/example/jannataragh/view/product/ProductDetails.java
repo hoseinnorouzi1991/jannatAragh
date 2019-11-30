@@ -23,6 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
@@ -34,8 +35,11 @@ import com.example.jannataragh.FragmentComments;
 import com.example.jannataragh.FragmentDoctorProperties;
 import com.example.jannataragh.FragmentProperties;
 import com.example.jannataragh.R;
+import com.example.jannataragh.view.base.BaseCommentFragment;
 import com.example.jannataragh.view.base.BaseFragment;
+import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,6 +51,7 @@ public class ProductDetails extends AppCompatActivity {
     private static final String TAG = ProductDetails.class.getSimpleName();
 
     String url = "http://www.grafik.computertalk.ir/StoreCode/SelectProductById.php";
+    String urlComment = "http://www.grafik.computertalk.ir/StoreCode/CommentProductById.php";
 
     JSONObject jsonObjectSendID;
     Bundle bundle = new Bundle();
@@ -72,6 +77,7 @@ public class ProductDetails extends AppCompatActivity {
         String id =  intent.getStringExtra("id");
 
         url = url + "?id="+id;
+        urlComment = urlComment + "?id="+id;
         try {
             jsonObjectSendID = new JSONObject();
             jsonObjectSendID.put("id",id);
@@ -145,6 +151,28 @@ public class ProductDetails extends AppCompatActivity {
         });
 
         new Task().execute();
+    }
+
+    public  void RecieveComments()
+    {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, urlComment, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                if (adapter != null)
+                    adapter.recieveData(response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ProductDetails.this,"error with load comments",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(request);
+
     }
 
     public void SendAndReceiveData()
@@ -262,6 +290,14 @@ public class ProductDetails extends AppCompatActivity {
             }
         }
 
+        public void recieveData(JSONArray jsonArray)
+        {
+            for(Fragment fragment:mFragmentList){
+                if(fragment instanceof BaseCommentFragment)
+                    ((BaseCommentFragment)fragment).recieveData(jsonArray);
+            }
+        }
+
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
@@ -273,6 +309,7 @@ public class ProductDetails extends AppCompatActivity {
         @Override
         protected String[] doInBackground(Void... voids) {
             SendAndReceiveData();
+            RecieveComments();
             return new String[0];
         }
 

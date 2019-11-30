@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 .showProgress(true)
                 .setBackgroundResource(R.color.colorPrimary)
                 .setFullScreen(true)
-                .setTime(2000)
+                .setTime(500)
                 .show();
 
         context = getApplicationContext();

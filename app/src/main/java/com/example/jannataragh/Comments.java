@@ -2,18 +2,27 @@ package com.example.jannataragh;
 
 public class Comments {
 
-    private int id;
+    private String id;
     private String title;
     private String desc;
     private String like;
     private String dislike;
 
+    public Comments(String id,String title,String desc, String like,String dislike)
+    {
+        this.id = id;
+        this.title = title;
+        this.desc = desc;
+        this.like = like;
+        this.dislike = dislike;
+    }
 
-    public void setId(int id) {
+
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

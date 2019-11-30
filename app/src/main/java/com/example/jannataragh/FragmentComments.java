@@ -9,16 +9,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.example.jannataragh.view.base.BaseCommentFragment;
+import com.example.jannataragh.view.base.BaseFragment;
+import com.example.jannataragh.view.product.ProductDetails;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class FragmentComments extends Fragment {
+public class FragmentComments extends BaseCommentFragment  {
 
     RecyclerView commentRecycler;
     CommentAdapter commentAdapter;
     ArrayList<Comments> commentsArrayList;
-
-    String url = "http://www.grafik.computertalk.ir/StoreCode/CommentProductById.php?id=1";
 
     @Nullable
     @Override
@@ -34,11 +41,7 @@ public class FragmentComments extends Fragment {
 
         commentRecycler = (RecyclerView)view.findViewById(R.id.comment_recycler);
 
-        commentsArrayList = new ArrayList<>();
-
-        commentAdapter = new CommentAdapter(commentsArrayList,getActivity());
-
-        for (int i = 0; i <10 ; i++) {
+        /*for (int i = 0; i <10 ; i++) {
             Comments comments = new Comments();
             comments.setId(i+1);
             comments.setTitle("عنوان کامنت");
@@ -47,15 +50,39 @@ public class FragmentComments extends Fragment {
             comments.setDislike("5");
 
             commentsArrayList.add(comments);
-        }
+        }*/
 
         //commentRecycler.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 //        recyclerView.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
 //        recyclerView.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
 //        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL));
+
         commentRecycler.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         commentAdapter = new CommentAdapter(commentsArrayList,getActivity());
         commentRecycler.setAdapter(commentAdapter);
+
         commentRecycler.setRotationY(180);
+    }
+
+
+    @Override
+    public void recieveData(JSONArray jsonArray) {
+
+        commentsArrayList = new ArrayList<>();
+        commentAdapter = new CommentAdapter(commentsArrayList,getActivity());
+
+        for (int i=0; i<jsonArray.length(); i++){
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                commentsArrayList.add(new Comments(jsonObject.getString("id"),
+                        jsonObject.getString("full_name"),
+                        jsonObject.getString("comment_content"),
+                        jsonObject.getString("like_comment"),
+                        jsonObject.getString("dislike_comment")));
+                int j = 0;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
