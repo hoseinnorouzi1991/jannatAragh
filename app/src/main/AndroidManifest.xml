@@ -18,10 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProductDetails">
+        <activity android:name=".view.product.ProductDetails">
 
         </activity>
-        <activity android:name=".BasketActivity">
+        <activity android:name=".view.basket.BasketActivity">
 
         </activity>
         <activity android:name=".BestSellerActivity">

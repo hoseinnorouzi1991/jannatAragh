@@ -1,21 +1,20 @@
 package com.example.jannataragh;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.jannataragh.view.base.BaseFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class FragmentProperties extends Fragment implements ProductDetails.DataReceivedListener{
+public class FragmentProperties extends BaseFragment {
 
     String title,desc,price;
     RelativeLayout relativeProperties;
@@ -45,8 +44,8 @@ public class FragmentProperties extends Fragment implements ProductDetails.DataR
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ProductDetails mActivity = (ProductDetails) getActivity();
-        mActivity.setAboutDataListener(this);
+//        ProductDetails mActivity = (ProductDetails) getActivity();
+//        mActivity.setAboutDataListener(this);
     }
 
     @Override
@@ -64,6 +63,17 @@ public class FragmentProperties extends Fragment implements ProductDetails.DataR
     }
 
     @Override
+    public void showData(JSONObject jsonObject) {
+        try {
+            txtPropertyProductTitle.setText(jsonObject.getString("name"));
+            txtPropertiesExplain.setText(jsonObject.getString("desc"));
+            txtPropertiesPrice.setText(jsonObject.getString("price"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*@Override
     public void onDataReceived(JSONObject jsonObject) {
         try {
             txtPropertyProductTitle.setText(jsonObject.getString("name"));
@@ -73,5 +83,5 @@ public class FragmentProperties extends Fragment implements ProductDetails.DataR
             e.printStackTrace();
         }
 
-    }
+    }*/
 }

@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jannataragh.view.product.ProductDetails;
+
 import java.util.ArrayList;
 
 public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHolder> {
@@ -51,7 +53,7 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
         productViewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.context,ProductDetails.class);
+                Intent intent = new Intent(MainActivity.context, ProductDetails.class);
                 MainActivity.context.startActivity(intent);
                 Toast.makeText(context,i+"",Toast.LENGTH_SHORT).show();
             }

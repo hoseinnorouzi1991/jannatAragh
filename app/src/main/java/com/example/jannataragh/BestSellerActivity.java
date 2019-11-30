@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.jannataragh.view.basket.BasketActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +31,7 @@ public class BestSellerActivity extends AppCompatActivity {
 
     RecyclerView recyclerBestSeller;
     RecyclerAdapter recyclerAdapter;
-    ArrayList<News> productArrayList;
+    ArrayList<Product> productArrayList;
 
     ImageBadgeView ibv_basket;
 
@@ -71,7 +72,7 @@ public class BestSellerActivity extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
-                        productArrayList.add(new News(jsonObject.getString("id"),
+                        productArrayList.add(new Product(jsonObject.getString("id"),
                                 jsonObject.getString("name"),
                                 jsonObject.getString("desc"),
                                 jsonObject.getString("price"),

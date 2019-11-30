@@ -1,11 +1,9 @@
-package com.example.jannataragh;
+package com.example.jannataragh.view.product;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
@@ -25,25 +23,24 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.jannataragh.FragmentComments;
+import com.example.jannataragh.FragmentDoctorProperties;
+import com.example.jannataragh.FragmentProperties;
+import com.example.jannataragh.R;
+import com.example.jannataragh.view.base.BaseFragment;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import ru.nikartm.support.ImageBadgeView;
 
 public class ProductDetails extends AppCompatActivity {
 
@@ -54,10 +51,9 @@ public class ProductDetails extends AppCompatActivity {
     JSONObject jsonObjectSendID;
     Bundle bundle = new Bundle();
     ImageView imgHeader;
+    private ViewPager viewPager;
 
-    public static Context context;
-
-    private DataReceivedListener DataListener;
+    /*private DataReceivedListener DataListener;
 
     public interface DataReceivedListener {
         void onDataReceived(JSONObject jsonObject);
@@ -65,7 +61,7 @@ public class ProductDetails extends AppCompatActivity {
 
     public void setAboutDataListener(DataReceivedListener listener) {
         this.DataListener = listener;
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,19 +79,16 @@ public class ProductDetails extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        new Task().execute();
         //SendAndReceiveData();
         //Toast.makeText(ProductDetails.this,id,Toast.LENGTH_SHORT).show();
 
-        context = getApplicationContext();
-
         imgHeader = (ImageView) findViewById(R.id.img_htab_header);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.htab_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.htab_toolbar);
         setSupportActionBar(toolbar);
         //if (getSupportActionBar() != null) getSupportActionBar().setTitle("عنوان محصول");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
+        viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
         setupViewPager(viewPager);
         viewPager.setRotationY(180);
 
@@ -150,6 +143,8 @@ public class ProductDetails extends AppCompatActivity {
 
             }
         });
+
+        new Task().execute();
     }
 
     public void SendAndReceiveData()
@@ -158,11 +153,11 @@ public class ProductDetails extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    if (getSupportActionBar() != null)
+                    if (getSupportActionBar() != null) {
                         getSupportActionBar().setTitle(response.getString("name"));
+                    }
 
-
-                    Glide.with(MainActivity.context).load("http://www.grafik.computertalk.ir/"+response.getString("img"))
+                    Glide.with(ProductDetails.this).load("http://www.grafik.computertalk.ir/"+response.getString("img"))
                             .listener(new RequestListener<Drawable>() {
                                 @Override
                                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -178,11 +173,13 @@ public class ProductDetails extends AppCompatActivity {
 //                   bundle.putString("name",response.getString("name"));
 //                   bundle.putString("desc",response.getString("desc"));
 
-                    if (DataListener != null)
+                    /*if (DataListener != null)
                     {
                         DataListener.onDataReceived(response);
-                    }
+                    }*/
 
+                    if(adapter != null)
+                        adapter.showData(response);
 
                     //response.getString("name");
 
@@ -203,8 +200,10 @@ public class ProductDetails extends AppCompatActivity {
 
     }
 
+    private ViewPagerAdapter adapter;
+
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
 
 
@@ -254,6 +253,13 @@ public class ProductDetails extends AppCompatActivity {
         public void addFrag(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
+        }
+
+        public void showData(JSONObject json){
+            for (Fragment fragment: mFragmentList){
+                if(fragment instanceof BaseFragment)
+                    ((BaseFragment) fragment).showData(json);
+            }
         }
 
         @Override

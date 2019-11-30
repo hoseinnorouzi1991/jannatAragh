@@ -3,19 +3,21 @@ package com.example.jannataragh;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.OvershootInterpolator;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.example.jannataragh.view.base.BaseFragment;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class FragmentDoctorProperties extends Fragment {
 
+public class FragmentDoctorProperties extends BaseFragment {
+
+    ExpandableTextView expTv1;
     RelativeLayout relativePropertiesDoctor;
     @Nullable
     @Override
@@ -32,11 +34,21 @@ public class FragmentDoctorProperties extends Fragment {
         relativePropertiesDoctor.setRotationY(180);
 
 // sample code snippet to set the text content on the ExpandableTextView
-        ExpandableTextView expTv1 = (ExpandableTextView) view.findViewById(R.id.expand_text_view)
+        expTv1 = (ExpandableTextView) view.findViewById(R.id.expand_text_view)
                 .findViewById(R.id.expand_text_view);
 
 // IMPORTANT - call setText on the ExpandableTextView to set the text content to display
-        expTv1.setText(getString(R.string.properties_doctor_desc));
+        //expTv1.setText(getString(R.string.properties_doctor_desc));
 
+    }
+
+    @Override
+    public void showData(JSONObject jsonObject) {
+
+        try {
+            expTv1.setText(jsonObject.getString("health_property"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

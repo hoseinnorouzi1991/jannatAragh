@@ -12,22 +12,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.jannataragh.view.product.ProductDetails;
 
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsViewHolder> {
 
-    ArrayList<News> newsArrayList = new ArrayList<>();
+    ArrayList<Product> newsArrayList = new ArrayList<>();
     Context context;
 
-    public RecyclerAdapter(ArrayList<News> news, Context context){
+    public RecyclerAdapter(ArrayList<Product> news, Context context){
 
         this.newsArrayList = news;
         this.context = context;
@@ -43,7 +43,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
     @Override
     public void onBindViewHolder(@NonNull final NewsViewHolder newsViewHolder, int i) {
 
-        final News model = newsArrayList.get(i);
+        final Product model = newsArrayList.get(i);
         newsViewHolder.txtTitle.setText(model.getTitle());
         newsViewHolder.txtDesc.setText(model.getDesc());
         newsViewHolder.txtPrice.setText(model.getPrice());
@@ -66,7 +66,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
         newsViewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.context,ProductDetails.class);
+                Intent intent = new Intent(MainActivity.context, ProductDetails.class);
                 intent.putExtra("id", model.getId());
                 context.startActivity(intent);
                 //Toast.makeText(context,i+"",Toast.LENGTH_SHORT).show();

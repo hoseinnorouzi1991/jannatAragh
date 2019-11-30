@@ -18,6 +18,8 @@ public class FragmentComments extends Fragment {
     CommentAdapter commentAdapter;
     ArrayList<Comments> commentsArrayList;
 
+    String url = "http://www.grafik.computertalk.ir/StoreCode/CommentProductById.php?id=1";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

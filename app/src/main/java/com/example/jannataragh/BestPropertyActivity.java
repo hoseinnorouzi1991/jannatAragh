@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.jannataragh.view.basket.BasketActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +30,7 @@ public class BestPropertyActivity extends AppCompatActivity {
 
     RecyclerView recyclerBestProperty;
     RecyclerAdapter recyclerAdapter;
-    ArrayList<News> productArrayList;
+    ArrayList<Product> productArrayList;
 
     ImageBadgeView ibv_basket;
 
@@ -53,7 +54,7 @@ public class BestPropertyActivity extends AppCompatActivity {
 
 //        for (int i=0; i<10;i++)
 //        {
-//            News news = new News();
+//            Product news = new Product();
 //            news.setId(i+1);
 //            news.setTitle("عرق خارخاسک");
 //            news.setDesc("این عرق برای انواع بیماری های و درمان آن ها استفاده می شود. این عرق به صورت کاملا طبیعی و بدون هیچ ناخالصی تولید می شود.");
@@ -88,7 +89,7 @@ public class BestPropertyActivity extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
-                        productArrayList.add(new News(jsonObject.getString("id"),
+                        productArrayList.add(new Product(jsonObject.getString("id"),
                                 jsonObject.getString("name"),
                                 jsonObject.getString("desc"),
                                 jsonObject.getString("price"),

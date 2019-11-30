@@ -1,18 +1,18 @@
-package com.example.jannataragh;
+package com.example.jannataragh.view.basket;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.jannataragh.BasketAdapter;
+import com.example.jannataragh.R;
+import com.example.jannataragh.basket;
 
 import java.util.ArrayList;
 

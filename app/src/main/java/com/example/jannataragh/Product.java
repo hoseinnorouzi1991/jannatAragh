@@ -2,7 +2,7 @@ package com.example.jannataragh;
 
 import com.android.volley.toolbox.StringRequest;
 
-public class News {
+public class Product {
 
     private String id;
     private String title;
@@ -10,7 +10,7 @@ public class News {
     private String price;
     private String img;
 
-    public News(String id,String title, String desc, String price,String img) {
+    public Product(String id, String title, String desc, String price, String img) {
         this.id = id;
         this.title = title;
         this.desc = desc;

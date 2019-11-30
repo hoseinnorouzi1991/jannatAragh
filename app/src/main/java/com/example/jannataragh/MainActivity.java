@@ -36,6 +36,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.jannataragh.view.basket.BasketActivity;
 import com.rbddevs.splashy.Splashy;
 
 import org.json.JSONArray;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView_porforoosh;
     RecyclerView recyclerView_porkhasiat;
     RecyclerAdapter recyclerAdapter;
-    ArrayList<News> product;
+    ArrayList<Product> product;
 
     int verticalOffsetTotal;
 
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         //swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipRefreh);
 
 //        for (int i = 0; i < 10; i++) {
-//            News products = new News();
+//            Product products = new Product();
 //            products.setId(i + 1);
 //            products.setTitle("عرق نعنا");
 //            products.setDesc("دارای خواص دارویی زیادی می باشد. در ادامه به خصوصیات آن بیشتر اشاره شده است...");
@@ -153,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 //                product.clear();
 //
 //                for (int i = 0; i <10 ; i++) {
-//                    News news = new News();
+//                    Product news = new Product();
 //                    news.setId(i+1);
 //                    news.setTitle("خبر ورزشی!");
 //                    news.setDesc("این یک خبر ورزشی تستی می باشد برای تست ریسایکلر ویوو");
@@ -421,7 +422,7 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
-                        product.add(new News(jsonObject.getString("id"),
+                        product.add(new Product(jsonObject.getString("id"),
                                 jsonObject.getString("name"),
                                 jsonObject.getString("desc"),
                                 jsonObject.getString("price"),
