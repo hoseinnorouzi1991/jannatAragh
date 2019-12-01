@@ -1,6 +1,6 @@
 package com.example.jannataragh.date;
 
-import com.example.jannataragh.Basket;
+import com.example.jannataragh.view.basket.Basket;
 import com.example.jannataragh.Product;
 
 import java.util.List;

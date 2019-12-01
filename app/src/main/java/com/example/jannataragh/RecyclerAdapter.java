@@ -26,6 +26,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
 
     ArrayList<Product> newsArrayList = new ArrayList<>();
     Context context;
+    Product model;
 
     public RecyclerAdapter(ArrayList<Product> news, Context context){
 
@@ -43,7 +44,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
     @Override
     public void onBindViewHolder(@NonNull final NewsViewHolder newsViewHolder, int i) {
 
-        final Product model = newsArrayList.get(i);
+        model = newsArrayList.get(i);
         newsViewHolder.txtTitle.setText(model.getTitle());
         newsViewHolder.txtDesc.setText(model.getDesc());
         newsViewHolder.txtPrice.setText(model.getPrice());

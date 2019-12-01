@@ -1,8 +1,10 @@
 package com.example.jannataragh;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jannataragh.view.basket.Basket;
+import com.example.jannataragh.view.basket.BasketActivity;
 import com.example.jannataragh.view.product.ProductDetails;
 
 import java.util.ArrayList;
@@ -40,7 +44,7 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
     @Override
     public void onBindViewHolder(@NonNull final BasketAdapter.NewsViewHolder productViewHolder, final int i) {
 
-        Basket basket = newsArrayList.get(i);
+        final Basket basket = newsArrayList.get(i);
         productViewHolder.txtProductTitle.setText(basket.getTitle());
         productViewHolder.txtTotalPriceValue.setText(basket.getTotalPrice());
         productViewHolder.txtTotalPriceValueDiscount.setText(basket.getDiscount());
@@ -54,8 +58,8 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.context, ProductDetails.class);
-                MainActivity.context.startActivity(intent);
-                Toast.makeText(context,i+"",Toast.LENGTH_SHORT).show();
+                intent.putExtra("id", basket.getId());
+                context.startActivity(intent);
             }
         });
 
