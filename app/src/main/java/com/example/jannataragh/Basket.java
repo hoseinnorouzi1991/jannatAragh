@@ -1,6 +1,6 @@
 package com.example.jannataragh;
 
-public class basket {
+public class Basket {
 
     private int id;
     private String title;

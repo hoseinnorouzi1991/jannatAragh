@@ -20,11 +20,11 @@ import java.util.ArrayList;
 
 public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHolder> {
 
-    ArrayList<basket> newsArrayList = new ArrayList<>();
+    ArrayList<Basket> newsArrayList = new ArrayList<>();
     Context context;
 
 
-    public BasketAdapter(ArrayList<basket> news, Context context){
+    public BasketAdapter(ArrayList<Basket> news, Context context){
 
         this.newsArrayList = news;
         this.context = context;
@@ -40,7 +40,7 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
     @Override
     public void onBindViewHolder(@NonNull final BasketAdapter.NewsViewHolder productViewHolder, final int i) {
 
-        basket basket = newsArrayList.get(i);
+        Basket basket = newsArrayList.get(i);
         productViewHolder.txtProductTitle.setText(basket.getTitle());
         productViewHolder.txtTotalPriceValue.setText(basket.getTotalPrice());
         productViewHolder.txtTotalPriceValueDiscount.setText(basket.getDiscount());

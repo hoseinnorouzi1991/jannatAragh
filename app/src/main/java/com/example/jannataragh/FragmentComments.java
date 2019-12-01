@@ -79,7 +79,6 @@ public class FragmentComments extends BaseCommentFragment  {
                         jsonObject.getString("comment_content"),
                         jsonObject.getString("like_comment"),
                         jsonObject.getString("dislike_comment")));
-                int j = 0;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
