@@ -47,7 +47,6 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
         final Basket basket = newsArrayList.get(i);
         productViewHolder.txtProductTitle.setText(basket.getTitle());
         productViewHolder.txtTotalPriceValue.setText(basket.getTotalPrice());
-        productViewHolder.txtTotalPriceValueDiscount.setText(basket.getDiscount());
         productViewHolder.txtFinalPriceValue.setText(basket.getFinalPrice());
 
         ArrayAdapter<CharSequence> spinerAdaper = ArrayAdapter.createFromResource(MainActivity.context,R.array.numbers,android.R.layout.simple_spinner_item);
@@ -62,8 +61,6 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
                 context.startActivity(intent);
             }
         });
-
-
 
     }
 
