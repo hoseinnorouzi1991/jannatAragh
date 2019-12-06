@@ -232,9 +232,6 @@ public class ProductDetails extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-
-
         adapter.addFrag(new FragmentProperties(), "مشخصات");
         adapter.addFrag(new FragmentDoctorProperties(), "مشخصات درمانی");
         adapter.addFrag(new FragmentComments(), "نظرات کاربران");

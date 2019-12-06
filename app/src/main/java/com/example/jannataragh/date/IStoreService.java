@@ -14,5 +14,8 @@ public interface IStoreService {
     Call<List<Product>> getAllProduct();
 
     @GET("/StoreCode/productBasket.php")
-    Call<String> getBasketProduct();
+    Call<List<Basket>> getBasketProduct();
+
+    @GET("/StoreCode/SelectProductById.php")
+    Call<List<Basket>> getProductById();
 }

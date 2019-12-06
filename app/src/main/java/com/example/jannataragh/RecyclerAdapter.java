@@ -48,8 +48,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
         newsViewHolder.txtTitle.setText(model.getTitle());
         newsViewHolder.txtDesc.setText(model.getDesc());
         newsViewHolder.txtPrice.setText(model.getPrice());
+        String id = model.getId();
 
-        Glide.with(MainActivity.context).load("http://www.grafik.computertalk.ir/"+newsArrayList.get(i).getImg())
+        Glide.with(MainActivity.context).load("http://www.grafik.computertalk.ir/"+model.getImg())
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -90,6 +91,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
         public TextView txtPrice;
         public ImageView imgPicture;
         public RelativeLayout relativeLayout;
+        public TextView txtId;
 
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,6 +101,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
             txtDesc = (TextView)itemView.findViewById(R.id.txt_recycler_descNews);
             txtPrice = (TextView)itemView.findViewById(R.id.txt_recycler_price);
             relativeLayout = (RelativeLayout)itemView.findViewById(R.id.relative);
+            txtId = itemView.findViewById(R.id.txt_product_id);
 
         }
     }

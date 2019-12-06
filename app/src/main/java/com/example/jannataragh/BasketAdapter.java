@@ -3,7 +3,9 @@ package com.example.jannataragh;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +18,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.jannataragh.view.basket.Basket;
 import com.example.jannataragh.view.basket.BasketActivity;
 import com.example.jannataragh.view.product.ProductDetails;
@@ -24,13 +31,13 @@ import java.util.ArrayList;
 
 public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHolder> {
 
-    ArrayList<Basket> newsArrayList = new ArrayList<>();
+    ArrayList<Basket> productsArrayList = new ArrayList<>();
     Context context;
 
 
     public BasketAdapter(ArrayList<Basket> news, Context context){
 
-        this.newsArrayList = news;
+        this.productsArrayList = news;
         this.context = context;
     }
 
@@ -44,10 +51,25 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
     @Override
     public void onBindViewHolder(@NonNull final BasketAdapter.NewsViewHolder productViewHolder, final int i) {
 
-        final Basket basket = newsArrayList.get(i);
+        final Basket basket = productsArrayList.get(i);
         productViewHolder.txtProductTitle.setText(basket.getTitle());
-        productViewHolder.txtTotalPriceValue.setText(basket.getTotalPrice());
-        productViewHolder.txtFinalPriceValue.setText(basket.getFinalPrice());
+        productViewHolder.txtTotalPriceValue.setText(basket.getTotalPrice()+"");
+        productViewHolder.txtFinalPriceValue.setText(basket.getFinalPrice()+"");
+        productViewHolder.txtTotalPriceValueDiscount.setText(basket.getDiscount()+"");
+        productViewHolder.spinnerNumber.setSelection(basket.getCount()-1);
+
+        Glide.with(MainActivity.context).load("http://www.grafik.computertalk.ir/"+productsArrayList.get(i).getImg())
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        return false;
+                    }
+                }).into(productViewHolder.imgProductBasket);
 
         ArrayAdapter<CharSequence> spinerAdaper = ArrayAdapter.createFromResource(MainActivity.context,R.array.numbers,android.R.layout.simple_spinner_item);
         spinerAdaper.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -66,7 +88,7 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
 
     @Override
     public int getItemCount() {
-        return newsArrayList.size();
+        return productsArrayList.size();
     }
 
 

@@ -3,22 +3,25 @@ package com.example.jannataragh.view.basket;
 public class Basket {
 
     private int id;
-    private int userId;
+    private int user_id;
     private String title;
-    private String totalPrice;
-    private String finalPrice;
-    private String image;
-    private String count;
+    private int price;
+    private int totalPrice;
+    private int finalPrice;
+    private String img;
+    private int count;
+    private int discount;
 
-    public Basket(int id,int userId, String title, String totalPrice, String finalPrice, String image, String count) {
+    public Basket(int id, int user_id, String title, int price, int totalPrice, int finalPrice, String img, int count,int discount) {
         this.id = id;
-        this.userId  =userId;
+        this.user_id = user_id;
         this.title = title;
+        this.price = price;
         this.totalPrice = totalPrice;
         this.finalPrice = finalPrice;
-        this.image = image;
+        this.img = img;
         this.count = count;
-
+        this.discount = discount;
     }
 
     public int getId() {
@@ -37,45 +40,74 @@ public class Basket {
         this.title = title;
     }
 
-    public String getTotalPrice() {
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getTotalPrice() {
+        if(count != 0)
+        {
+            totalPrice = count * price;
+        }
+
         return totalPrice;
     }
 
-    public String getFinalPrice() {
-        return finalPrice;
-    }
-
-    public void setTotalPrice(String totalPrice) {
+    public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
     }
 
+    public int getFinalPrice() {
 
+        if (discount != 0)
+        {
+            discount = price * (discount/100);
+            finalPrice = price - discount;
+            return finalPrice;
+        }
+        else
+        {
+            return totalPrice;
+        }
+    }
 
-    public void setFinalPrice(String finalPrice) {
+    public void setFinalPrice(int finalPrice) {
         this.finalPrice = finalPrice;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(int count) {
         this.count = count;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getDiscount() {
+        return discount;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
 }

@@ -69,7 +69,43 @@ public class BasketActivity extends AppCompatActivity {
 
         RetrofitExecute();
 
-        mIStoreService.getBasketProduct().enqueue(new Callback<String>() {
+        mIStoreService.getBasketProduct().enqueue(new Callback<List<Basket>>() {
+            @Override
+            public void onResponse(Call<List<Basket>> call, Response<List<Basket>> response) {
+                if (response.isSuccessful())
+                {
+                    for (int i = 0; i<response.body().size();i++)
+                    {
+                        List<Basket> list = response.body();
+                        arrayList_basket.add(new Basket(list.get(i).getId(),
+                                list.get(i).getUser_id(),
+                                list.get(i).getTitle(),
+                                list.get(i).getPrice(),
+                                list.get(i).getTotalPrice(),
+                                list.get(i).getFinalPrice(),
+                                list.get(i).getImg(),
+                                list.get(i).getCount(),
+                                list.get(i).getDiscount()));
+                    }
+
+
+                    recyclerView_basket.setLayoutManager(new LinearLayoutManager(BasketActivity.this, LinearLayoutManager.VERTICAL, false));
+
+                    arrayAdapter_basket = new BasketAdapter(arrayList_basket, BasketActivity.this);
+
+                    recyclerView_basket.setAdapter(arrayAdapter_basket);
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Basket>> call, Throwable t) {
+
+            }
+        });
+
+        /*mIStoreService.getBasketProduct().enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
 
@@ -119,13 +155,7 @@ public class BasketActivity extends AppCompatActivity {
             }
         });
 
-
-        recyclerView_basket.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-        arrayAdapter_basket = new BasketAdapter(arrayList_basket, this);
-
-        recyclerView_basket.setAdapter(arrayAdapter_basket);
-
+*/
 
         relativeFinalBuy.setOnClickListener(new View.OnClickListener() {
             @Override
