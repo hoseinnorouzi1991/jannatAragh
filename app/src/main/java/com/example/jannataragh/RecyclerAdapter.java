@@ -101,7 +101,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
             txtDesc = (TextView)itemView.findViewById(R.id.txt_recycler_descNews);
             txtPrice = (TextView)itemView.findViewById(R.id.txt_recycler_price);
             relativeLayout = (RelativeLayout)itemView.findViewById(R.id.relative);
-            txtId = itemView.findViewById(R.id.txt_product_id);
+            //txtId = itemView.findViewById(R.id.txt_product_id);
 
         }
     }

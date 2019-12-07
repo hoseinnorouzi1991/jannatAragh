@@ -56,7 +56,7 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
         productViewHolder.txtTotalPriceValue.setText(basket.getTotalPrice()+"");
         productViewHolder.txtFinalPriceValue.setText(basket.getFinalPrice()+"");
         productViewHolder.txtTotalPriceValueDiscount.setText(basket.getDiscount()+"");
-        productViewHolder.spinnerNumber.setSelection(basket.getCount()-1);
+
 
         Glide.with(MainActivity.context).load("http://www.grafik.computertalk.ir/"+productsArrayList.get(i).getImg())
                 .listener(new RequestListener<Drawable>() {
@@ -74,6 +74,7 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
         ArrayAdapter<CharSequence> spinerAdaper = ArrayAdapter.createFromResource(MainActivity.context,R.array.numbers,android.R.layout.simple_spinner_item);
         spinerAdaper.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         productViewHolder.spinnerNumber.setAdapter(spinerAdaper);
+        productViewHolder.spinnerNumber.setSelection(basket.getCount()-1);
 
         productViewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
