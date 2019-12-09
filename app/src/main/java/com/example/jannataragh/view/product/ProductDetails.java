@@ -73,14 +73,16 @@ public class ProductDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_details);
 
-        Intent intent = getIntent();
-        String id =  intent.getStringExtra("id");
+        //Intent intent = getIntent();
+        //String id =  intent.getStringExtra("id");
+        Bundle bundle = getIntent().getExtras();
+        String idProduct = bundle.getString("id");
 
-        url = url + "?id="+id;
-        urlComment = urlComment + "?id="+id;
+        url = url + "?id="+idProduct;
+        urlComment = urlComment + "?id="+idProduct;
         try {
             jsonObjectSendID = new JSONObject();
-            jsonObjectSendID.put("id",id);
+            jsonObjectSendID.put("id",idProduct);
         } catch (JSONException e) {
             e.printStackTrace();
         }

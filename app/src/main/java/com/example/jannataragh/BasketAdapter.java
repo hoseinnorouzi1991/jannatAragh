@@ -23,6 +23,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.jannataragh.view.base.G;
 import com.example.jannataragh.view.basket.Basket;
 import com.example.jannataragh.view.basket.BasketActivity;
 import com.example.jannataragh.view.product.ProductDetails;
@@ -71,7 +72,7 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
                     }
                 }).into(productViewHolder.imgProductBasket);
 
-        ArrayAdapter<CharSequence> spinerAdaper = ArrayAdapter.createFromResource(MainActivity.context,R.array.numbers,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> spinerAdaper = ArrayAdapter.createFromResource(G.context,R.array.numbers,android.R.layout.simple_spinner_item);
         spinerAdaper.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         productViewHolder.spinnerNumber.setAdapter(spinerAdaper);
 

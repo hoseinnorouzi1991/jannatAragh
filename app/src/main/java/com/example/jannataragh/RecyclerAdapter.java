@@ -48,7 +48,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
         newsViewHolder.txtTitle.setText(model.getTitle());
         newsViewHolder.txtDesc.setText(model.getDesc());
         newsViewHolder.txtPrice.setText(model.getPrice());
-        String id = model.getId();
+        newsViewHolder.id = model.getId();
 
         Glide.with(MainActivity.context).load("http://www.grafik.computertalk.ir/"+model.getImg())
                 .listener(new RequestListener<Drawable>() {
@@ -65,15 +65,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
                     }
                 }).into(newsViewHolder.imgPicture);
 
-        newsViewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.context, ProductDetails.class);
-                intent.putExtra("id", model.getId());
-                context.startActivity(intent);
-                //Toast.makeText(context,i+"",Toast.LENGTH_SHORT).show();
-            }
-        });
 
     }
 
@@ -92,6 +83,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
         public ImageView imgPicture;
         public RelativeLayout relativeLayout;
         public TextView txtId;
+        public String id="";
 
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,6 +94,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
             txtPrice = (TextView)itemView.findViewById(R.id.txt_recycler_price);
             relativeLayout = (RelativeLayout)itemView.findViewById(R.id.relative);
             txtId = itemView.findViewById(R.id.txt_product_id);
+
+            relativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.context, ProductDetails.class);
+                    intent.putExtra("id",id);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    //Toast.makeText(context,i+"",Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
     }
