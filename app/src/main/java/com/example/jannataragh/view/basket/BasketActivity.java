@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.example.jannataragh.BasketAdapter;
 import com.example.jannataragh.R;
 import com.example.jannataragh.date.IStoreService;
+import com.example.jannataragh.view.base.G;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +35,7 @@ public class BasketActivity extends AppCompatActivity {
     BasketAdapter arrayAdapter_basket;
 
     RelativeLayout relativeFinalBuy;
+    ProgressBar progressBarBasket;
 
     Spinner spinner;
 
@@ -48,6 +51,7 @@ public class BasketActivity extends AppCompatActivity {
         arrayList_basket = new ArrayList<>();
         relativeFinalBuy = (RelativeLayout) findViewById(R.id.relative_final_buy);
 
+        progressBarBasket = findViewById(R.id.progressbar_basket);
 
 /*        Integer[] items = new Integer[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
         ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, items);
@@ -88,6 +92,7 @@ public class BasketActivity extends AppCompatActivity {
                                 list.get(i).getDiscount()));
                     }
 
+                    progressBarBasket.setVisibility(View.GONE);
 
                     recyclerView_basket.setLayoutManager(new LinearLayoutManager(BasketActivity.this, LinearLayoutManager.VERTICAL, false));
 
@@ -102,6 +107,7 @@ public class BasketActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Basket>> call, Throwable t) {
 
+                progressBarBasket.setVisibility(View.GONE);
             }
         });
 

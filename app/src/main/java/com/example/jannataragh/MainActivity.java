@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txtBestSeller,txtBestProperty;
 
     ImageBadgeView ibv_basket;
+    ProgressBar progressBar_porforoosh;
 
     String url = "http://www.grafik.computertalk.ir/StoreCode/product.php";
 
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 .setTitleColor("#FFFFFF")
                 .setSubTitle("محصولات کاملا ارگانیک و بدون ناخالصی")
                 .setSubTitleColor("#FFFFFF")
-                .setProgressColor("#FFFFFF")
+                .setProgressColor(R.color.colorPrimary)
                 .showProgress(true)
                 .setBackgroundResource(R.color.colorPrimary)
                 .setFullScreen(true)
@@ -111,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         navigationView = (NavigationView) findViewById(R.id.navigationView);
         imgUser = (ImageView)findViewById(R.id.img_user);
+        progressBar_porforoosh = findViewById(R.id.progressbar_porforosh);
 //        fab = (FloatingActionButton) findViewById(R.id.fab);
         //imgDrawerMenu = (ImageView)findViewById(R.id.imgDrawerMenu);
 
@@ -433,6 +436,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
+                progressBar_porforoosh.setVisibility(View.GONE);
                 recyclerAdapter = new RecyclerAdapter(product, MainActivity.this);
                 recyclerView_porforoosh.setAdapter(recyclerAdapter);
 
@@ -444,6 +448,7 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(MainActivity.this, "مشکلی رخ داده است.اتصال اینترنت خود را بررسی کنید.", Toast.LENGTH_SHORT).show();
                 //progressDialog.dismiss();
+                progressBar_porforoosh.setVisibility(View.GONE);
             }
         });
 

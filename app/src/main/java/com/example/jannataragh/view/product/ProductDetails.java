@@ -16,7 +16,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -57,6 +60,7 @@ public class ProductDetails extends AppCompatActivity {
     Bundle bundle = new Bundle();
     ImageView imgHeader;
     private ViewPager viewPager;
+    ProgressBar progressBarLoadDetailes;
 
     /*private DataReceivedListener DataListener;
 
@@ -95,6 +99,7 @@ public class ProductDetails extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //if (getSupportActionBar() != null) getSupportActionBar().setTitle("عنوان محصول");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        progressBarLoadDetailes = findViewById(R.id.progressbar_load_detailes);
 
         viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
         setupViewPager(viewPager);
@@ -102,6 +107,8 @@ public class ProductDetails extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.htab_tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.htab_collapse_toolbar);
 
@@ -212,6 +219,10 @@ public class ProductDetails extends AppCompatActivity {
                         adapter.showData(response);
 
                     //response.getString("name");
+                    AlphaAnimation fadeOutAnimation = new AlphaAnimation(1.0f, 0.0f);//fade from 1 to 0 alpha
+                    fadeOutAnimation.setDuration(1000);
+                    fadeOutAnimation.setFillAfter(true);
+                    progressBarLoadDetailes.startAnimation(fadeOutAnimation);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -221,6 +232,10 @@ public class ProductDetails extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(ProductDetails.this,"not find",Toast.LENGTH_SHORT).show();
+                /*AlphaAnimation fadeOutAnimation = new AlphaAnimation(1.0f, 0.0f);//fade from 1 to 0 alpha
+                fadeOutAnimation.setDuration(500);
+                fadeOutAnimation.setFillAfter(true);
+                progressBarLoadDetailes.startAnimation(fadeOutAnimation);*/
             }
         });
 

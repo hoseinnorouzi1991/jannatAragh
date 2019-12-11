@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -55,12 +56,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         //progressBar.setVisibility(View.GONE);
+                        newsViewHolder.progressBar.setVisibility(View.GONE);
                         return false;
                     }
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                         //progressBar.setVisibility(View.GONE);
+                        newsViewHolder.progressBar.setVisibility(View.GONE);
                         return false;
                     }
                 }).into(newsViewHolder.imgPicture);
@@ -84,6 +87,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
         public RelativeLayout relativeLayout;
         public TextView txtId;
         public String id="";
+        public ProgressBar progressBar;
 
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -94,6 +98,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
             txtPrice = (TextView)itemView.findViewById(R.id.txt_recycler_price);
             relativeLayout = (RelativeLayout)itemView.findViewById(R.id.relative);
             txtId = itemView.findViewById(R.id.txt_product_id);
+            progressBar = itemView.findViewById(R.id.progress_pic_product);
+
 
             relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

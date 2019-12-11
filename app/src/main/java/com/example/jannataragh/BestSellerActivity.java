@@ -9,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -34,6 +35,7 @@ public class BestSellerActivity extends AppCompatActivity {
     ArrayList<Product> productArrayList;
 
     ImageBadgeView ibv_basket;
+    ProgressBar progressBarBestSeller;
 
     String url = "http://www.grafik.computertalk.ir/StoreCode/product.php";
 
@@ -43,6 +45,7 @@ public class BestSellerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_best_seller);
 
         ibv_basket = (ImageBadgeView)findViewById(R.id.ibv_basket);
+        progressBarBestSeller = findViewById(R.id.progressbar_best_seller);
 
         recyclerBestSeller = (RecyclerView)findViewById(R.id.recycler_best_seller);
         recyclerBestSeller.setHasFixedSize(true);
@@ -83,6 +86,7 @@ public class BestSellerActivity extends AppCompatActivity {
                     }
                 }
 
+                progressBarBestSeller.setVisibility(View.GONE);
                 recyclerAdapter = new RecyclerAdapter(productArrayList, MainActivity.context);
                 recyclerBestSeller.setAdapter(recyclerAdapter);
 
@@ -92,6 +96,7 @@ public class BestSellerActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(BestSellerActivity.this, "مشکلی رخ داده است.اتصال اینترنت خود را بررسی کنید.", Toast.LENGTH_SHORT).show();
                 //progressDialog.dismiss();
+                progressBarBestSeller.setVisibility(View.GONE);
             }
         });
 
