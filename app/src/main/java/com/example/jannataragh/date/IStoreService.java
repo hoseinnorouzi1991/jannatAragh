@@ -2,6 +2,8 @@ package com.example.jannataragh.date;
 
 import com.example.jannataragh.view.basket.Basket;
 import com.example.jannataragh.Product;
+import com.example.jannataragh.view.user.User;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,4 +20,7 @@ public interface IStoreService {
 
     @GET("/StoreCode/SelectProductById.php")
     Call<List<Basket>> getProductById();
+
+    @GET("/StoreCode/getLoginedUser")
+    Call<User> getLoginedInUser();
 }

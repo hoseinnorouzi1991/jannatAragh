@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/txt_login"
+            android:id="@+id/txt_head_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edt_phone_number" />
 
     <RelativeLayout
-        android:id="@+id/rl_register"
+        android:id="@+id/rl_login"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
@@ -74,16 +74,16 @@
 
 
     <TextView
-        android:id="@+id/txt_register2"
+        android:id="@+id/txt_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="ورود به حساب کاربری"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/rl_register"
-        app:layout_constraintEnd_toEndOf="@+id/rl_register"
-        app:layout_constraintStart_toStartOf="@+id/rl_register"
-        app:layout_constraintTop_toTopOf="@+id/rl_register" />
+        app:layout_constraintBottom_toBottomOf="@+id/rl_login"
+        app:layout_constraintEnd_toEndOf="@+id/rl_login"
+        app:layout_constraintStart_toStartOf="@+id/rl_login"
+        app:layout_constraintTop_toTopOf="@+id/rl_login" />
 
     <ImageView
         android:id="@+id/imageView5"
