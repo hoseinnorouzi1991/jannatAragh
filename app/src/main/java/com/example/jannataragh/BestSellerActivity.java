@@ -18,6 +18,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.jannataragh.date.IStoreService;
+import com.example.jannataragh.view.basket.Basket;
 import com.example.jannataragh.view.basket.BasketActivity;
 
 import org.json.JSONArray;
@@ -25,7 +27,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import ru.nikartm.support.ImageBadgeView;
 
 public class BestSellerActivity extends AppCompatActivity {
@@ -38,6 +45,17 @@ public class BestSellerActivity extends AppCompatActivity {
     ProgressBar progressBarBestSeller;
 
     String url = "http://www.grafik.computertalk.ir/StoreCode/product.php";
+
+    String baseUrl = "http://grafik.computertalk.ir/";
+    IStoreService mStoreService;
+
+    public void retrofitExecute()
+    {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        mStoreService = retrofit.create(IStoreService.class);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +79,20 @@ public class BestSellerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent_basket = new Intent(BestSellerActivity.this, BasketActivity.class);
                 startActivity(intent_basket);
+            }
+        });
+
+        retrofitExecute();
+
+        mStoreService.getBasketProduct().enqueue(new Callback<List<Basket>>() {
+            @Override
+            public void onResponse(Call<List<Basket>> call, retrofit2.Response<List<Basket>> response) {
+                ibv_basket.setBadgeValue(response.body().get(0).getCount());
+            }
+
+            @Override
+            public void onFailure(Call<List<Basket>> call, Throwable t) {
+
             }
         });
 

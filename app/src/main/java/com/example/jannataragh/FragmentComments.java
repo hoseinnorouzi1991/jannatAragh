@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class FragmentComments extends BaseCommentFragment  {
+public class FragmentComments extends BaseCommentFragment {
 
     RecyclerView commentRecycler;
     CommentAdapter commentAdapter;
@@ -57,11 +57,7 @@ public class FragmentComments extends BaseCommentFragment  {
 //        recyclerView.setLayoutManager(new GridLayoutManager(this,2,LinearLayoutManager.VERTICAL,false));
 //        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL));
 
-        commentRecycler.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        commentAdapter = new CommentAdapter(commentsArrayList,getActivity());
-        commentRecycler.setAdapter(commentAdapter);
 
-        commentRecycler.setRotationY(180);
     }
 
 
@@ -74,14 +70,22 @@ public class FragmentComments extends BaseCommentFragment  {
         for (int i=0; i<jsonArray.length(); i++){
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                commentsArrayList.add(new Comments(jsonObject.getString("id"),
-                        jsonObject.getString("full_name"),
-                        jsonObject.getString("comment_content"),
-                        jsonObject.getString("like_comment"),
-                        jsonObject.getString("dislike_comment")));
+                if (jsonObject != null) {
+                    commentsArrayList.add(new Comments(jsonObject.getString("id"),
+                            jsonObject.getString("full_name"),
+                            jsonObject.getString("comment_content"),
+                            jsonObject.getString("like_comment"),
+                            jsonObject.getString("dislike_comment")));
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+
+        commentRecycler.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        commentAdapter = new CommentAdapter(commentsArrayList,getActivity());
+        commentRecycler.setAdapter(commentAdapter);
+
+        commentRecycler.setRotationY(180);
     }
 }

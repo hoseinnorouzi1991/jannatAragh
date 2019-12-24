@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import retrofit2.Retrofit;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,6 +38,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.jannataragh.date.IStoreService;
+import com.example.jannataragh.view.base.BaseRetrofit;
+import com.example.jannataragh.view.base.BasetUrl;
+import com.example.jannataragh.view.basket.Basket;
 import com.example.jannataragh.view.basket.BasketActivity;
 import com.rbddevs.splashy.Splashy;
 
@@ -45,7 +50,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.converter.gson.GsonConverterFactory;
 import ru.nikartm.support.ImageBadgeView;
 
 public class MainActivity extends AppCompatActivity {
@@ -86,23 +95,30 @@ public class MainActivity extends AppCompatActivity {
 
     String url = "http://www.grafik.computertalk.ir/StoreCode/product.php";
 
+    IStoreService mStoreService;
+
+    String baseUrl = "http://grafik.computertalk.ir/";
+
+    Splashy splashy;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Splashy splashy = new Splashy(this);
+
+        splashy = new Splashy(this);
         splashy.setLogo(R.drawable.aragh)
                 .setTitle("عرقیات جنت شهر")
                 .setTitleColor("#FFFFFF")
                 .setSubTitle("محصولات کاملا ارگانیک و بدون ناخالصی")
                 .setSubTitleColor("#FFFFFF")
-                .setProgressColor(R.color.colorPrimary)
+                .setProgressColor("#FFFFFF")
                 .showProgress(true)
                 .setBackgroundResource(R.color.colorPrimary)
                 .setFullScreen(true)
-                .setTime(500)
                 .show();
+
 
         context = getApplicationContext();
 
@@ -114,6 +130,21 @@ public class MainActivity extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.navigationView);
         imgUser = (ImageView)findViewById(R.id.img_user);
         progressBar_porforoosh = findViewById(R.id.progressbar_porforosh);
+
+
+        RetrofitExecute();
+
+        mStoreService.getBasketProduct().enqueue(new Callback<List<Basket>>() {
+            @Override
+            public void onResponse(Call<List<Basket>> call, retrofit2.Response<List<Basket>> response) {
+                ibv_basket.setBadgeValue(response.body().get(0).getCount());
+            }
+
+            @Override
+            public void onFailure(Call<List<Basket>> call, Throwable t) {
+
+            }
+        });
 //        fab = (FloatingActionButton) findViewById(R.id.fab);
         //imgDrawerMenu = (ImageView)findViewById(R.id.imgDrawerMenu);
 
@@ -225,6 +256,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         //https://blog.iamsuleiman.com/toolbar-animation-with-android-design-support-library/
 
 
@@ -249,6 +282,8 @@ public class MainActivity extends AppCompatActivity {
 //                drawerLayout.openDrawer(Gravity.START);
 //            }
 //        });
+
+
 
         ibv_basket.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -327,6 +362,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    public void RetrofitExecute()
+    {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        mStoreService = retrofit.create(IStoreService.class);
+
+    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -441,6 +486,7 @@ public class MainActivity extends AppCompatActivity {
                 recyclerView_porforoosh.setAdapter(recyclerAdapter);
 
                 recyclerView_porkhasiat.setAdapter(recyclerAdapter);
+
 
             }
         }, new Response.ErrorListener() {

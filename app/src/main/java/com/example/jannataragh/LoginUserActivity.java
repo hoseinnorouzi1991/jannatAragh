@@ -85,7 +85,7 @@ public class LoginUserActivity extends AppCompatActivity {
 
                         if(!response.isSuccessful())
                         {
-                            BaseRetrofit baseRetrofit = new BaseRetrofit();
+                            BaseRetrofit baseRetrofit = new BaseRetrofit(mStoreService,BasetUrl.baseUrl);
                             baseRetrofit.RetrofitExecute();
                             return;
                         }

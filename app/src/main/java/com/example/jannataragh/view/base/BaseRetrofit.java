@@ -8,8 +8,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BaseRetrofit {
 
-    String baseUrl = "http://grafik.computertalk.ir/StoreCode";
+
+    String baseUrl = "http://grafik.computertalk.ir/";
     IStoreService mIStoreService;
+
+    public BaseRetrofit(IStoreService iStoreService ,String baseUrl)
+    {
+        this.baseUrl = baseUrl;
+        this.mIStoreService = iStoreService;
+
+    }
+
 
     public void RetrofitExecute()
     {

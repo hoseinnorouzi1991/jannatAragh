@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.jannataragh.view.base.BaseFragment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,8 +64,9 @@ public class FragmentProperties extends BaseFragment {
     }
 
     @Override
-    public void showData(JSONObject jsonObject) {
+    public void showData(JSONArray jsonArray) {
         try {
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
             txtPropertyProductTitle.setText(jsonObject.getString("name"));
             txtPropertiesExplain.setText(jsonObject.getString("desc"));
             txtPropertiesPrice.setText(jsonObject.getString("price"));

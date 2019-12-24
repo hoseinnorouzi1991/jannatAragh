@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.view.inputmethod.BaseInputConnection;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -155,6 +156,7 @@ public class ProductDetails extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+                tab.getPosition();
 
             }
         });
@@ -169,8 +171,7 @@ public class ProductDetails extends AppCompatActivity {
             public void onResponse(JSONArray response) {
 
                 if (adapter != null)
-                    adapter.recieveData(response);
-
+                    adapter.receiveComment(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -186,15 +187,20 @@ public class ProductDetails extends AppCompatActivity {
 
     public void SendAndReceiveData()
     {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(JSONArray response) {
+
+
                 try {
+
+                    JSONObject jsonObject = response.getJSONObject(0);
+
                     if (getSupportActionBar() != null) {
-                        getSupportActionBar().setTitle(response.getString("name"));
+                        getSupportActionBar().setTitle(jsonObject.getString("name"));
                     }
 
-                    Glide.with(ProductDetails.this).load("http://www.grafik.computertalk.ir/"+response.getString("img"))
+                    Glide.with(ProductDetails.this).load("http://www.grafik.computertalk.ir/"+jsonObject.getString("img"))
                             .listener(new RequestListener<Drawable>() {
                                 @Override
                                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -249,6 +255,7 @@ public class ProductDetails extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setOffscreenPageLimit(3);
         adapter.addFrag(new FragmentProperties(), "مشخصات");
         adapter.addFrag(new FragmentDoctorProperties(), "مشخصات درمانی");
         adapter.addFrag(new FragmentComments(), "نظرات کاربران");
@@ -297,20 +304,21 @@ public class ProductDetails extends AppCompatActivity {
             mFragmentTitleList.add(title);
         }
 
-        public void showData(JSONObject json){
+        public void showData(JSONArray json){
             for (Fragment fragment: mFragmentList){
                 if(fragment instanceof BaseFragment)
                     ((BaseFragment) fragment).showData(json);
             }
         }
 
-        public void recieveData(JSONArray jsonArray)
+        public void receiveComment(JSONArray json)
         {
-            for(Fragment fragment:mFragmentList){
-                if(fragment instanceof BaseCommentFragment)
-                    ((BaseCommentFragment)fragment).recieveData(jsonArray);
-            }
+            for (Fragment fragment: mFragmentList )
+                if (fragment instanceof BaseCommentFragment)
+                    ((BaseCommentFragment)fragment).recieveData(json);
         }
+
+
 
         @Override
         public CharSequence getPageTitle(int position) {

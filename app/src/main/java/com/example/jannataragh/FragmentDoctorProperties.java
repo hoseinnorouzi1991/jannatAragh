@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import com.example.jannataragh.view.base.BaseFragment;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,9 +44,10 @@ public class FragmentDoctorProperties extends BaseFragment {
     }
 
     @Override
-    public void showData(JSONObject jsonObject) {
+    public void showData(JSONArray jsonArray) {
 
         try {
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
             expTv1.setText(jsonObject.getString("health_property"));
         } catch (JSONException e) {
             e.printStackTrace();
