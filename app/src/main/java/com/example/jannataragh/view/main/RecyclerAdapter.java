@@ -1,4 +1,4 @@
-package com.example.jannataragh;
+package com.example.jannataragh.view.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.jannataragh.R;
 import com.example.jannataragh.view.product.ProductDetails;
 
 import java.util.ArrayList;

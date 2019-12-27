@@ -1,4 +1,4 @@
-package com.example.jannataragh;
+package com.example.jannataragh.view.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -38,11 +38,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.jannataragh.view.bestSeller.BestSellerActivity;
+import com.example.jannataragh.view.user.LoginUserActivity;
+import com.example.jannataragh.R;
 import com.example.jannataragh.date.IStoreService;
-import com.example.jannataragh.view.base.BaseRetrofit;
-import com.example.jannataragh.view.base.BasetUrl;
 import com.example.jannataragh.view.basket.Basket;
 import com.example.jannataragh.view.basket.BasketActivity;
+import com.example.jannataragh.view.bestProperties.BestPropertyActivity;
 import com.rbddevs.splashy.Splashy;
 
 import org.json.JSONArray;
@@ -296,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
         txtBestSeller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_best_seller = new Intent(MainActivity.this,BestSellerActivity.class);
+                Intent intent_best_seller = new Intent(MainActivity.this, BestSellerActivity.class);
                 startActivity(intent_best_seller);
             }
         });
@@ -312,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
         txtBestProperty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_best_property = new Intent(MainActivity.this,BestPropertyActivity.class);
+                Intent intent_best_property = new Intent(MainActivity.this, BestPropertyActivity.class);
                 startActivity(intent_best_property);
             }
         });

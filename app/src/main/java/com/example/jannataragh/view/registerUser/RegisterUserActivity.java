@@ -1,10 +1,12 @@
-package com.example.jannataragh;
+package com.example.jannataragh.view.registerUser;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.example.jannataragh.R;
 
 public class RegisterUserActivity extends AppCompatActivity {
 

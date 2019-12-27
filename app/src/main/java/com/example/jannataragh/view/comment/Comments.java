@@ -1,4 +1,4 @@
-package com.example.jannataragh;
+package com.example.jannataragh.view.comment;
 
 public class Comments {
 

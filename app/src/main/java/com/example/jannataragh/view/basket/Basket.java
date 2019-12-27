@@ -2,8 +2,9 @@ package com.example.jannataragh.view.basket;
 
 public class Basket {
 
-    private int id;
+    private String id;
     private int user_id;
+    private String product_id;
     private String title;
     private int price;
     private int totalPrice;
@@ -12,9 +13,10 @@ public class Basket {
     private int count;
     private int discount;
 
-    public Basket(int id, int user_id, String title, int price, int totalPrice, int finalPrice, String img, int count,int discount) {
+    public Basket(String id, int user_id,String product_id, String title, int price, int totalPrice, int finalPrice, String img, int count,int discount) {
         this.id = id;
         this.user_id = user_id;
+        this.product_id = product_id;
         this.title = title;
         this.price = price;
         this.totalPrice = totalPrice;
@@ -24,12 +26,12 @@ public class Basket {
         this.discount = discount;
     }
 
-    public int getId() {
-        return id;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -109,5 +111,13 @@ public class Basket {
 
     public void setDiscount(int discount) {
         this.discount = discount;
+    }
+
+    public String getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
     }
 }

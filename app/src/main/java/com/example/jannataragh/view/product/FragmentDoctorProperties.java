@@ -1,4 +1,4 @@
-package com.example.jannataragh;
+package com.example.jannataragh.view.product;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.example.jannataragh.R;
 import com.example.jannataragh.view.base.BaseFragment;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 

@@ -1,7 +1,6 @@
-package com.example.jannataragh;
+package com.example.jannataragh.view.user;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,12 +15,12 @@ import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.jannataragh.R;
+import com.example.jannataragh.view.registerUser.RegisterUserActivity;
 import com.example.jannataragh.date.IStoreService;
 import com.example.jannataragh.view.base.BaseRetrofit;
 import com.example.jannataragh.view.base.BasetUrl;
 import com.example.jannataragh.view.base.BasicAuthInterceptor;
-import com.example.jannataragh.view.base.G;
-import com.example.jannataragh.view.user.User;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -116,7 +115,7 @@ public class LoginUserActivity extends AppCompatActivity {
         txtRegisterUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_register_user = new Intent(LoginUserActivity.this,RegisterUserActivity.class);
+                Intent intent_register_user = new Intent(LoginUserActivity.this, RegisterUserActivity.class);
                 startActivity(intent_register_user);
             }
         });

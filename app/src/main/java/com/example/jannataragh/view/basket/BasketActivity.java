@@ -1,5 +1,6 @@
 package com.example.jannataragh.view.basket;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,13 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.jannataragh.BasketAdapter;
 import com.example.jannataragh.R;
 import com.example.jannataragh.date.IStoreService;
-import com.example.jannataragh.view.base.G;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.jannataragh.view.product.ProductDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +25,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class BasketActivity extends AppCompatActivity {
+public class BasketActivity extends AppCompatActivity implements BasketAdapter.MyInterface {
 
     RecyclerView recyclerView_basket;
     ArrayList<Basket> arrayList_basket;
@@ -36,11 +33,13 @@ public class BasketActivity extends AppCompatActivity {
 
     RelativeLayout relativeFinalBuy;
     ProgressBar progressBarBasket;
+    public Spinner spinnerNumber;
 
-    Spinner spinner;
 
     String baseUrl = "http://grafik.computertalk.ir/";
     IStoreService mIStoreService;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +51,9 @@ public class BasketActivity extends AppCompatActivity {
         relativeFinalBuy = (RelativeLayout) findViewById(R.id.relative_final_buy);
 
         progressBarBasket = findViewById(R.id.progressbar_basket);
+
+        spinnerNumber = findViewById(R.id.sp_number_product_basket);
+
 
 /*        Integer[] items = new Integer[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
         ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, items);
@@ -83,6 +85,7 @@ public class BasketActivity extends AppCompatActivity {
                         List<Basket> list = response.body();
                         arrayList_basket.add(new Basket(list.get(i).getId(),
                                 list.get(i).getUser_id(),
+                                list.get(i).getProduct_id(),
                                 list.get(i).getTitle(),
                                 list.get(i).getPrice(),
                                 list.get(i).getTotalPrice(),
@@ -96,7 +99,7 @@ public class BasketActivity extends AppCompatActivity {
 
                     recyclerView_basket.setLayoutManager(new LinearLayoutManager(BasketActivity.this, LinearLayoutManager.VERTICAL, false));
 
-                    arrayAdapter_basket = new BasketAdapter(arrayList_basket, BasketActivity.this);
+                    arrayAdapter_basket = new BasketAdapter(arrayList_basket);
 
                     recyclerView_basket.setAdapter(arrayAdapter_basket);
 
@@ -179,5 +182,13 @@ public class BasketActivity extends AppCompatActivity {
 
         mIStoreService = retrofit.create(IStoreService.class);
 
+    }
+
+    @Override
+    public void relativeOnClickListener(String id) {
+        Intent intent = new Intent(BasketActivity.this, ProductDetails.class);
+        intent.putExtra("id", id);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

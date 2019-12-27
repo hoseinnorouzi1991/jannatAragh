@@ -1,4 +1,4 @@
-package com.example.jannataragh;
+package com.example.jannataragh.view.product;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.jannataragh.R;
 import com.example.jannataragh.view.base.BaseFragment;
 
 import org.json.JSONArray;

@@ -1,4 +1,4 @@
-package com.example.jannataragh;
+package com.example.jannataragh.view.bestSeller;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -18,9 +18,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.jannataragh.R;
 import com.example.jannataragh.date.IStoreService;
 import com.example.jannataragh.view.basket.Basket;
 import com.example.jannataragh.view.basket.BasketActivity;
+import com.example.jannataragh.view.main.MainActivity;
+import com.example.jannataragh.view.main.Product;
+import com.example.jannataragh.view.main.RecyclerAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -119,7 +123,7 @@ public class BestSellerActivity extends AppCompatActivity {
                 }
 
                 progressBarBestSeller.setVisibility(View.GONE);
-                recyclerAdapter = new RecyclerAdapter(productArrayList, MainActivity.context);
+                recyclerAdapter = new RecyclerAdapter(productArrayList, BestSellerActivity.this);
                 recyclerBestSeller.setAdapter(recyclerAdapter);
 
             }
@@ -132,7 +136,7 @@ public class BestSellerActivity extends AppCompatActivity {
             }
         });
 
-        RequestQueue requestQueue1 = Volley.newRequestQueue(MainActivity.context);
+        RequestQueue requestQueue1 = Volley.newRequestQueue(BestSellerActivity.this);
         requestQueue1.add(request);
 
 //        Animation animation = null;

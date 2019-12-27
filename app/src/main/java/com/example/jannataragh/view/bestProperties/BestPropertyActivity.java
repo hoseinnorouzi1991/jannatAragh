@@ -1,4 +1,4 @@
-package com.example.jannataragh;
+package com.example.jannataragh.view.bestProperties;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.jannataragh.view.main.Product;
+import com.example.jannataragh.R;
+import com.example.jannataragh.view.main.RecyclerAdapter;
 import com.example.jannataragh.date.IStoreService;
 import com.example.jannataragh.view.basket.Basket;
 import com.example.jannataragh.view.basket.BasketActivity;
@@ -139,7 +142,7 @@ public class BestPropertyActivity extends AppCompatActivity {
 
                 progressBarBestProperties.setVisibility(View.GONE);
 
-                recyclerAdapter = new RecyclerAdapter(productArrayList, MainActivity.context);
+                recyclerAdapter = new RecyclerAdapter(productArrayList, BestPropertyActivity.this);
                 recyclerBestProperty.setAdapter(recyclerAdapter);
 
             }
@@ -152,7 +155,7 @@ public class BestPropertyActivity extends AppCompatActivity {
             }
         });
 
-        RequestQueue requestQueue1 = Volley.newRequestQueue(MainActivity.context);
+        RequestQueue requestQueue1 = Volley.newRequestQueue(BestPropertyActivity.this);
         requestQueue1.add(request);
 
 //        Animation animation = null;

@@ -1,10 +1,9 @@
 package com.example.jannataragh.date;
 
 import com.example.jannataragh.view.basket.Basket;
-import com.example.jannataragh.Product;
+import com.example.jannataragh.view.main.Product;
 import com.example.jannataragh.view.user.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
