@@ -45,6 +45,8 @@ import com.example.jannataragh.date.IStoreService;
 import com.example.jannataragh.view.basket.Basket;
 import com.example.jannataragh.view.basket.BasketActivity;
 import com.example.jannataragh.view.bestProperties.BestPropertyActivity;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.rbddevs.splashy.Splashy;
 
 import org.json.JSONArray;
@@ -136,7 +138,21 @@ public class MainActivity extends AppCompatActivity {
 
         RetrofitExecute();
 
-        mStoreService.getBasketProduct().enqueue(new Callback<List<Basket>>() {
+        mStoreService.getBasketCount("1").enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
+                JsonElement jsonElement = response.body().get("count");
+                String count = jsonElement.getAsString();
+                ibv_basket.setBadgeValue(Integer.parseInt(count));
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+
+            }
+        });
+
+        /*mStoreService.getBasketProduct().enqueue(new Callback<List<Basket>>() {
             @Override
             public void onResponse(Call<List<Basket>> call, retrofit2.Response<List<Basket>> response) {
                 ibv_basket.setBadgeValue(response.body().get(0).getCount());
@@ -146,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<List<Basket>> call, Throwable t) {
 
             }
-        });
+        });*/
 //        fab = (FloatingActionButton) findViewById(R.id.fab);
         //imgDrawerMenu = (ImageView)findViewById(R.id.imgDrawerMenu);
 

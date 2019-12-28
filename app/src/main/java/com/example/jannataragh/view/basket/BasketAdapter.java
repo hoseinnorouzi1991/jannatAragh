@@ -41,12 +41,12 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
         this.myInterface = myInterface;
     }
 
+    ArrayList<Basket> productsArrayList = new ArrayList<>();
+
     public BasketAdapter(ArrayList<Basket> news){
 
         this.productsArrayList = news;
     }
-
-    ArrayList<Basket> productsArrayList = new ArrayList<>();
 
     @NonNull
     @Override
@@ -94,7 +94,6 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
             //txtProductRemoveBasket = (TextView)itemView.findViewById(R.id.txt_product_remove_basket);
             relativeLayout = (RelativeLayout)itemView.findViewById(R.id.relative);
             spinnerNumber = (Spinner)itemView.findViewById(R.id.sp_number_product_basket);
-
 
             relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

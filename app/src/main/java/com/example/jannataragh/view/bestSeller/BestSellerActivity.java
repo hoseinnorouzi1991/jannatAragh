@@ -25,6 +25,8 @@ import com.example.jannataragh.view.basket.BasketActivity;
 import com.example.jannataragh.view.main.MainActivity;
 import com.example.jannataragh.view.main.Product;
 import com.example.jannataragh.view.main.RecyclerAdapter;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -88,18 +90,19 @@ public class BestSellerActivity extends AppCompatActivity {
 
         retrofitExecute();
 
-        mStoreService.getBasketProduct().enqueue(new Callback<List<Basket>>() {
+        mStoreService.getBasketCount("1").enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<List<Basket>> call, retrofit2.Response<List<Basket>> response) {
-                ibv_basket.setBadgeValue(response.body().get(0).getCount());
+            public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
+                JsonElement jsonElement = response.body().get("count");
+                String count = jsonElement.getAsString();
+                ibv_basket.setBadgeValue(Integer.parseInt(count));
             }
 
             @Override
-            public void onFailure(Call<List<Basket>> call, Throwable t) {
+            public void onFailure(Call<JsonObject> call, Throwable t) {
 
             }
         });
-
     }
 
     private void showData() {
