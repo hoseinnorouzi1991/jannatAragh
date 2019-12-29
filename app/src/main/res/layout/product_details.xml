@@ -68,7 +68,37 @@
                     android:layout_gravity="top"
                     android:layout_marginBottom="48dp"
                     app:layout_collapseMode="pin"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/img_properties_fav"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp"
+                                android:layout_toRightOf="@id/img_properties_share"
+                                android:src="@drawable/ic_favorite_black_24dp" />
+
+                            <ImageView
+                                android:layout_marginLeft="20dp"
+                                android:id="@+id/img_properties_share"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentLeft="true"
+                                android:src="@drawable/ic_share_black_24dp" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.Toolbar>
 
 
                 <android.support.design.widget.TabLayout
@@ -93,11 +123,11 @@
     </android.support.design.widget.CoordinatorLayout>
 
     <ProgressBar
-        android:background="#FFFFFF"
         android:id="@+id/progressbar_load_detailes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="150dp"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:background="#FFFFFF"
+        android:padding="150dp" />
 
 </RelativeLayout>

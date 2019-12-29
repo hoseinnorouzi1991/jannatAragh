@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.example.jannataragh.R;
 import com.example.jannataragh.view.base.BaseFragment;
+import com.google.gson.JsonObject;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import org.json.JSONArray;
@@ -53,5 +54,10 @@ public class FragmentDoctorProperties extends BaseFragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void loadFave(JsonObject jsonObject) {
+
     }
 }

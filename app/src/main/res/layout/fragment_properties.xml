@@ -31,26 +31,11 @@
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="8dp">
 
-                    <ImageView
-                        android:id="@+id/img_properties_fav"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:src="@drawable/ic_favorite_black_24dp" />
-
-                    <ImageView
-                        android:id="@+id/img_properties_share"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_toRightOf="@id/img_properties_fav"
-                        android:src="@drawable/ic_share_black_24dp" />
 
                     <TextView
                         android:id="@+id/txt_properties_product_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/img_properties_fav"
                         android:maxLines="1"
                         tools:text="@string/title_properties"
                         android:textColor="#2f2f2f"

@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -32,8 +33,11 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.jannataragh.R;
+import com.example.jannataragh.date.IStoreService;
 import com.example.jannataragh.view.base.BaseCommentFragment;
 import com.example.jannataragh.view.base.BaseFragment;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +45,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProductDetails extends AppCompatActivity {
 
@@ -54,7 +63,13 @@ public class ProductDetails extends AppCompatActivity {
     ImageView imgHeader;
     private ViewPager viewPager;
     ProgressBar progressBarLoadDetailes;
+    ImageView imgPropertiesFave,imgPropertiesShare;
+    boolean isFave = false;
 
+    IStoreService mStoreService;
+    String baseUrl = "http://grafik.computertalk.ir/";
+
+    String idProduct;
     /*private DataReceivedListener DataListener;
 
     public interface DataReceivedListener {
@@ -73,7 +88,7 @@ public class ProductDetails extends AppCompatActivity {
         //Intent intent = getIntent();
         //String id =  intent.getStringExtra("id");
         Bundle bundle = getIntent().getExtras();
-        String idProduct = bundle.getString("id");
+        idProduct = bundle.getString("id");
 
         url = url + "?id="+idProduct;
         urlComment = urlComment + "?id="+idProduct;
@@ -89,6 +104,9 @@ public class ProductDetails extends AppCompatActivity {
 
         imgHeader = (ImageView) findViewById(R.id.img_htab_header);
         Toolbar toolbar = (Toolbar) findViewById(R.id.htab_toolbar);
+        imgPropertiesFave = findViewById(R.id.img_properties_fav);
+        imgPropertiesShare = findViewById(R.id.img_properties_share);
+
         setSupportActionBar(toolbar);
         //if (getSupportActionBar() != null) getSupportActionBar().setTitle("عنوان محصول");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -101,7 +119,21 @@ public class ProductDetails extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.htab_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        loadFave();
 
+        imgPropertiesFave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isFave) {
+                    imgPropertiesFave.setImageResource(R.drawable.ic_favorite_black_24dp);
+                    isFave = false;
+                }
+                else {
+                    imgPropertiesFave.setImageResource(R.drawable.ic_favorite_red_24dp);
+                    isFave = true;
+                }
+            }
+        });
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.htab_collapse_toolbar);
 
@@ -154,6 +186,43 @@ public class ProductDetails extends AppCompatActivity {
         });
 
         new Task().execute();
+    }
+
+    private void loadFave() {
+
+        RetrofitExecute();
+
+        mStoreService.loadFave("1",idProduct).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
+                JsonElement jsonElement = response.body().get("isFave");
+                String isFaveString = jsonElement.getAsString();
+                if (isFaveString.equals("1"))
+                {
+                    imgPropertiesFave.setImageResource(R.drawable.ic_favorite_red_24dp);
+                    isFave = true;
+                }
+                else if (isFaveString.equals("0"))
+                {
+                    imgPropertiesFave.setImageResource(R.drawable.ic_favorite_black_24dp);
+                    isFave = false;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void RetrofitExecute()
+    {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        mStoreService = retrofit.create(IStoreService.class);
     }
 
     public  void RecieveComments()

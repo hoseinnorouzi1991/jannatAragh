@@ -30,4 +30,9 @@ public interface IStoreService {
     @GET("/StoreCode/basketItemCount.php")
     Call<JsonObject> getBasketCount(@Query("user_id") String user_id);
 
+    @GET("/StoreCode/basketItemCount.php")
+    Call<JsonObject> isFave(@Query("user_id") String user_id, @Query("product_id") String product_id);
+
+    @GET("/StoreCode/favoriteLoad.php")
+    Call<JsonObject> loadFave(@Query("user_id") String user_id, @Query("product_id") String product_id);
 }
