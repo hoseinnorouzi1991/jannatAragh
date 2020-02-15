@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.jannataragh.R;
 import com.example.jannataragh.date.IStoreService;
+import com.example.jannataragh.utils.IBasketItemClick;
 import com.example.jannataragh.view.product.ProductDetails;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class BasketActivity extends AppCompatActivity implements BasketAdapter.MyInterface {
+public class BasketActivity extends AppCompatActivity implements IBasketItemClick {
 
     RecyclerView recyclerView_basket;
     ArrayList<Basket> arrayList_basket;
@@ -35,6 +36,7 @@ public class BasketActivity extends AppCompatActivity implements BasketAdapter.M
     ProgressBar progressBarBasket;
     public Spinner spinnerNumber;
 
+    IBasketItemClick iBasketItemClick;
 
     String baseUrl = "http://grafik.computertalk.ir/";
     IStoreService mIStoreService;
@@ -98,11 +100,19 @@ public class BasketActivity extends AppCompatActivity implements BasketAdapter.M
                     progressBarBasket.setVisibility(View.GONE);
 
                     recyclerView_basket.setLayoutManager(new LinearLayoutManager(BasketActivity.this, LinearLayoutManager.VERTICAL, false));
+                    arrayAdapter_basket = new BasketAdapter(arrayList_basket,iBasketItemClick);
 
-                    arrayAdapter_basket = new BasketAdapter(arrayList_basket);
+                    arrayAdapter_basket.setiBasketItemClick(new IBasketItemClick() {
+                        @Override
+                        public void basketItemClickListener(String id) {
+                            Intent intent = new Intent(BasketActivity.this, ProductDetails.class);
+                            intent.putExtra("id", id);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    });
 
                     recyclerView_basket.setAdapter(arrayAdapter_basket);
-
 
                 }
             }
@@ -113,6 +123,8 @@ public class BasketActivity extends AppCompatActivity implements BasketAdapter.M
                 progressBarBasket.setVisibility(View.GONE);
             }
         });
+
+
 
         /*mIStoreService.getBasketProduct().enqueue(new Callback<String>() {
             @Override
@@ -184,11 +196,9 @@ public class BasketActivity extends AppCompatActivity implements BasketAdapter.M
 
     }
 
+
     @Override
-    public void relativeOnClickListener(String id) {
-        Intent intent = new Intent(BasketActivity.this, ProductDetails.class);
-        intent.putExtra("id", id);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+    public void basketItemClickListener(String id) {
+
     }
 }

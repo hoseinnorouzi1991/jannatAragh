@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import retrofit2.Retrofit;
 
 import com.android.volley.Request;
@@ -38,7 +39,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.jannataragh.utils.OnItemClickListener2;
 import com.example.jannataragh.view.bestSeller.BestSellerActivity;
+import com.example.jannataragh.view.product.ProductDetails;
 import com.example.jannataragh.view.user.LoginUserActivity;
 import com.example.jannataragh.R;
 import com.example.jannataragh.date.IStoreService;
@@ -61,7 +64,7 @@ import retrofit2.Callback;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.nikartm.support.ImageBadgeView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  implements OnItemClickListener2 {
 
     ImageView imgMenu;
     DrawerLayout drawerLayout;
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
     MenuItem menuItem;
 
-    TextView txtBestSeller,txtBestProperty;
+    TextView txtBestSeller, txtBestProperty;
 
     ImageBadgeView ibv_basket;
     ProgressBar progressBar_porforoosh;
@@ -126,13 +129,13 @@ public class MainActivity extends AppCompatActivity {
 
         context = getApplicationContext();
 
-        ibv_basket = (ImageBadgeView)findViewById(R.id.ibv_basket);
-        txtBestSeller = (TextView)findViewById(R.id.txt_best_seller);
-        txtBestProperty = (TextView)findViewById(R.id.txt_best_property);
+        ibv_basket = (ImageBadgeView) findViewById(R.id.ibv_basket);
+        txtBestSeller = (TextView) findViewById(R.id.txt_best_seller);
+        txtBestProperty = (TextView) findViewById(R.id.txt_best_property);
         imgMenu = (ImageView) findViewById(R.id.imgHambergerMenu);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         navigationView = (NavigationView) findViewById(R.id.navigationView);
-        imgUser = (ImageView)findViewById(R.id.img_user);
+        imgUser = (ImageView) findViewById(R.id.img_user);
         progressBar_porforoosh = findViewById(R.id.progressbar_porforosh);
 
 
@@ -275,7 +278,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         //https://blog.iamsuleiman.com/toolbar-animation-with-android-design-support-library/
 
 
@@ -300,7 +302,6 @@ public class MainActivity extends AppCompatActivity {
 //                drawerLayout.openDrawer(Gravity.START);
 //            }
 //        });
-
 
 
         ibv_basket.setOnClickListener(new View.OnClickListener() {
@@ -363,12 +364,12 @@ public class MainActivity extends AppCompatActivity {
                         //navigationView.getMenu().getItem(5).setChecked(true);
                         break;
                     case R.id.menu_best_property_navigation:
-                        Intent intent_best_property = new Intent(MainActivity.this,BestPropertyActivity.class);
+                        Intent intent_best_property = new Intent(MainActivity.this, BestPropertyActivity.class);
                         startActivity(intent_best_property);
                         //navigationView.getMenu().getItem(3).setChecked(true);
                         break;
                     case R.id.menu_best_seller_navigation:
-                        Intent intent_best_seller = new Intent(MainActivity.this,BestSellerActivity.class);
+                        Intent intent_best_seller = new Intent(MainActivity.this, BestSellerActivity.class);
                         startActivity(intent_best_seller);
                         //navigationView.getMenu().getItem(2).setChecked(true);
                         break;
@@ -381,8 +382,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void RetrofitExecute()
-    {
+    public void RetrofitExecute() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -500,7 +500,16 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 progressBar_porforoosh.setVisibility(View.GONE);
-                recyclerAdapter = new RecyclerAdapter(product, MainActivity.this);
+                recyclerAdapter = new RecyclerAdapter(product, MainActivity.this,MainActivity.this);
+                recyclerAdapter.setOnItemClickedListener(new RecyclerAdapter.OnItemClickedListener() {
+                    @Override
+                    public void onClick(String id) {
+                        Intent intent = new Intent(MainActivity.this, ProductDetails.class);
+                        intent.putExtra("id", id);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                    }
+                });
                 recyclerView_porforoosh.setAdapter(recyclerAdapter);
 
                 recyclerView_porkhasiat.setAdapter(recyclerAdapter);
@@ -526,6 +535,11 @@ public class MainActivity extends AppCompatActivity {
 //        animation = null;
 
 
+    }
+
+    @Override
+    public void onClick2(String id) {
+        Toast.makeText(this,"id = "+id,Toast.LENGTH_LONG).show();
     }
 
 
@@ -560,3 +574,13 @@ https://uxplanet.org/top-15-search-github-ui-libraries-and-components-java-swift
 Expand text
 https://github.com/Blogcat/Android-ExpandableTextView
  */
+
+//scrolableImageView
+//DialogFragment
+//Thread and multiThread
+//Tooltip
+//OOP : Abstraction , Encapsulation , Inheritance , Polymorphism
+//SQLite : crud -> create,read(select),update,delete;
+//ORM : room
+//FireBase : pushNotification
+//DesignPattern singleton , adapter , builder , factory , observable

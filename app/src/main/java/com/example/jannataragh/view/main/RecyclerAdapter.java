@@ -20,20 +20,24 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.jannataragh.R;
+import com.example.jannataragh.utils.OnItemClickListener2;
 import com.example.jannataragh.view.product.ProductDetails;
 
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsViewHolder> {
 
+
     ArrayList<Product> newsArrayList = new ArrayList<>();
     Context context;
     Product model;
 
-    public RecyclerAdapter(ArrayList<Product> news, Context context){
+    private OnItemClickListener2 listener2;
 
+    public RecyclerAdapter(ArrayList<Product> news, Context context, OnItemClickListener2 listener2){
         this.newsArrayList = news;
         this.context = context;
+        this.listener2 = listener2;
     }
 
     @NonNull
@@ -105,14 +109,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewsVi
             relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.context, ProductDetails.class);
-                    intent.putExtra("id",id);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                    //Toast.makeText(context,i+"",Toast.LENGTH_SHORT).show();
+
+                    listener.onClick(id);
+                    listener2.onClick2(id);
                 }
             });
 
         }
+    }
+
+
+    public interface OnItemClickedListener
+    {
+        void onClick(String id);
+    }
+
+    private OnItemClickedListener listener;
+
+    public void setOnItemClickedListener(OnItemClickedListener listener)
+    {
+        this.listener = listener;
     }
 }

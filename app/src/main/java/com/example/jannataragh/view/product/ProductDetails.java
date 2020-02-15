@@ -124,14 +124,7 @@ public class ProductDetails extends AppCompatActivity {
         imgPropertiesFave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isFave) {
-                    imgPropertiesFave.setImageResource(R.drawable.ic_favorite_black_24dp);
-                    isFave = false;
-                }
-                else {
-                    imgPropertiesFave.setImageResource(R.drawable.ic_favorite_red_24dp);
-                    isFave = true;
-                }
+//                updateFave();
             }
         });
 
@@ -187,6 +180,35 @@ public class ProductDetails extends AppCompatActivity {
 
         new Task().execute();
     }
+
+   /* private void updateFave() {
+        RetrofitExecute();
+
+        mStoreService.updateFave("1",idProduct).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
+
+                JsonElement jsonElement = response.body().get("done");
+                String done = jsonElement.getAsString();
+                if(done.equals("1"))
+                {
+                    imgPropertiesFave.setImageResource(R.drawable.ic_favorite_red_24dp);
+                    isFave = true;
+                }
+                else if(done.equals("0"))
+                {
+                    imgPropertiesFave.setImageResource(R.drawable.ic_favorite_black_24dp);
+                    isFave = false;
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+
+            }
+        });
+    }*/
 
     private void loadFave() {
 

@@ -23,29 +23,27 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.jannataragh.R;
+import com.example.jannataragh.utils.IBasketItemClick;
 import com.example.jannataragh.view.product.ProductDetails;
 
 import java.util.ArrayList;
 
 public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHolder> {
 
-    private MyInterface myInterface;
+    private IBasketItemClick iBasketItemClick;
 
-    public interface MyInterface
+    public void setiBasketItemClick(IBasketItemClick iBasketItemClick)
     {
-        void relativeOnClickListener(String id);
-    }
-
-    public  void setRelativeOnClickListener(MyInterface myInterface)
-    {
-        this.myInterface = myInterface;
+        this.iBasketItemClick = iBasketItemClick;
     }
 
     ArrayList<Basket> productsArrayList = new ArrayList<>();
 
-    public BasketAdapter(ArrayList<Basket> news){
+    public BasketAdapter(ArrayList<Basket> news,IBasketItemClick iBasketItemClick){
 
         this.productsArrayList = news;
+        this.iBasketItemClick = iBasketItemClick;
+
     }
 
     @NonNull
@@ -98,7 +96,7 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.NewsViewHo
             relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    myInterface.relativeOnClickListener(id+"");
+                    iBasketItemClick.basketItemClickListener(id+"");
                     /*Intent intent = new Intent(itemView.getContext(), ProductDetails.class);
                     intent.putExtra("id", id);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

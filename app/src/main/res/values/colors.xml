@@ -3,6 +3,7 @@
     <color name="colorPrimary">#4CAF50</color>
     <color name="colorPrimaryDark">#419644</color>
     <color name="colorAccent">#C95800</color><!--FF9800-->
+    <color name="statusBarColor">#419644</color>
     <color name="backgroundApp">#B4E7E3E3</color>
     <color name="backgroundDiscount">#B4E4E2E2</color>
     <color name="backgroundDrawer">#D5D5D5</color>

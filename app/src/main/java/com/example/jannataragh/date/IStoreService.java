@@ -10,7 +10,9 @@ import org.json.JSONObject;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface IStoreService {
@@ -35,4 +37,7 @@ public interface IStoreService {
 
     @GET("/StoreCode/favoriteLoad.php")
     Call<JsonObject> loadFave(@Query("user_id") String user_id, @Query("product_id") String product_id);
+
+    @POST("/StoreCode/favoriteUpdate.php")
+    Call<JsonObject> updateFave(@Query("user_id") String user_id, @Query("product_id") String product_id);
 }
